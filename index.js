@@ -13,27 +13,34 @@ Blocos
 x, y, largura e altura
 
 Colisão de blocos
-Criação de bloco
-Randomização de criação de letras
+Criação de bloco OK
+Randomização de criação de letras OK
 Identificador de palavras
 Colisão das bordas do canvas
 Movimentação dos blocos
 Touch events
 */
-//  window.requestAnimationFrame() em vez de setInterval()
-// bloco = [x, y, largura, altura]
+//  id = window.requestAnimationFrame() e window.cancelAnimationFrame(id)
+// bloco = [letra, y]
 // Coluna = bloco[]
 var Game = (function () {
     function Game(id) {
-        this.QUADRADO_LARGURA = 50;
-        this.QUADRADO_ALTURA = 50;
+        // TODO dividir a seleção aleatória de letras entre consoantes e vogais
+        this.BLOCO_LARGURA = 50;
+        this.BLOCO_ALTURA = 50;
         this.COLUNAS_POSICAO_X = [0, 50, 100, 150];
         this.LETRAS_POSICAO_X = [25, 75, 125, 175];
         this.COLUNAS_POSICAO_Y_INICIAL = 0;
-        this.LETRAS_POSICAO_Y_INICIAL = this.COLUNAS_POSICAO_Y_INICIAL + this.QUADRADO_ALTURA - 10;
+        this.LETRAS_POSICAO_Y_INICIAL = this.COLUNAS_POSICAO_Y_INICIAL + this.BLOCO_ALTURA - 10;
+        this.VOGAIS = ['A', 'E', 'I', 'O', 'U'];
         this.ALFABETO = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+        this.COLUNAS_TAMANHO = 7;
+        this.QUANTIDADE_DE_COLUNAS = 4;
+        this.ALTURA_DA_TELA = 350;
         this.colunas = [[], [], [], []];
-        this.quadrados_selecionados = [];
+        this.blocos_selecionados = [];
+        this.velocidade = 10;
+        this.y = 10;
         // Private members
         // Privileged - can acess private members
         this.canvas = document.getElementById(id);
@@ -41,20 +48,78 @@ var Game = (function () {
         this.context.textAlign = "center";
         this.context.font = "30pt Arial";
     }
-    Game.prototype.criar_bloco = function () {
-        var coluna_id = Math.floor(Math.random() * 4), letra_id = Math.floor(Math.random() * 26);
+    Game.prototype.criar_novo_bloco = function () {
+        var coluna_id = Math.floor(Math.random() * 4), letra_id, letra, vogal_ou_alfabeto = Math.floor(Math.random() * 4);
 
+        if (vogal_ou_alfabeto == 0) {
+            letra_id = Math.floor(Math.random() * 5);
+            letra = this.VOGAIS[letra_id];
+        } else {
+            letra_id = Math.floor(Math.random() * 26);
+            letra = this.ALFABETO[letra_id];
+        }
+
+        // TODO verificação de fim de jogo(quando não poder mais colocar blocos)
+        // Adicionando na tela
         this.context.fillStyle = "gray";
-        this.context.fillRect(this.COLUNAS_POSICAO_X[coluna_id], this.COLUNAS_POSICAO_Y_INICIAL, this.QUADRADO_LARGURA, this.QUADRADO_ALTURA);
-        this.context.fillStyle = "green";
-        this.context.fillText(this.ALFABETO[letra_id], this.LETRAS_POSICAO_X[coluna_id], this.LETRAS_POSICAO_Y_INICIAL);
+        this.context.fillRect(this.COLUNAS_POSICAO_X[coluna_id], this.COLUNAS_POSICAO_Y_INICIAL, this.BLOCO_LARGURA, this.BLOCO_ALTURA);
+        this.context.fillStyle = "black";
+        this.context.fillText(letra, this.LETRAS_POSICAO_X[coluna_id], this.LETRAS_POSICAO_Y_INICIAL);
+
+        // Adicionando na coluna
+        console.log(coluna_id, [letra, this.COLUNAS_POSICAO_Y_INICIAL]);
+        this.colunas[coluna_id].unshift([letra, this.COLUNAS_POSICAO_Y_INICIAL]);
+    };
+
+    //FIX colisão está errada, sobrando espaço entre os blocos
+    Game.prototype.proximo_frame = function () {
+        var i, j, bloco_posterior_posicao_y, tamanho_coluna_atual, coluna_atual;
+
+        this.context.clearRect(0, 0, 200, 350);
+
+        if ((this.colunas[0][0] == undefined || this.colunas[0][0][1] >= 50) && (this.colunas[1][0] == undefined || this.colunas[1][0][1] >= 50) && (this.colunas[2][0] == undefined || this.colunas[2][0][1] >= 50) && (this.colunas[3][0] == undefined || this.colunas[3][0][1] >= 50)) {
+            this.criar_novo_bloco();
+        }
+
+        for (j = 0; j < this.QUANTIDADE_DE_COLUNAS; j++) {
+            coluna_atual = this.colunas[j];
+            tamanho_coluna_atual = coluna_atual.length;
+
+            if (tamanho_coluna_atual > 0) {
+                for (i = tamanho_coluna_atual - 1; i >= 0; i--) {
+                    if (i + 1 < tamanho_coluna_atual) {
+                        bloco_posterior_posicao_y = coluna_atual[i + 1][1];
+
+                        if ((coluna_atual[i][1] + this.BLOCO_ALTURA < this.ALTURA_DA_TELA) && (bloco_posterior_posicao_y && (coluna_atual[i][1] + this.BLOCO_ALTURA < bloco_posterior_posicao_y))) {
+                            coluna_atual[i][1] += this.velocidade;
+                        }
+                    } else if (coluna_atual[i][1] + this.BLOCO_ALTURA < this.ALTURA_DA_TELA) {
+                        coluna_atual[i][1] += this.velocidade;
+                    }
+
+                    // Desenhando bloco
+                    //TODO Cor do bloco(se foi selecionado ou não) será aki
+                    this.context.fillStyle = "gray";
+                    this.context.strokeRect(this.COLUNAS_POSICAO_X[j], this.colunas[j][i][1], this.BLOCO_LARGURA, this.BLOCO_ALTURA);
+                    this.context.fillStyle = "black";
+                    this.context.fillText(this.colunas[j][i][0], this.LETRAS_POSICAO_X[j], this.colunas[j][i][1] + this.BLOCO_ALTURA - 10);
+                }
+            }
+        }
+    };
+
+    Game.prototype.chamar_proximo_frame = function () {
+        this.proximo_frame();
+
+        if (this.y == 10)
+            this.game_loop = requestAnimationFrame(this.chamar_proximo_frame.bind(this));
     };
     return Game;
 })();
 
 if (document.getElementById('canvasOne').getContext) {
     var game = new Game('canvasOne');
-    game.criar_bloco();
+    game.chamar_proximo_frame();
 } else {
     console.error('Canvas not supported');
 }
