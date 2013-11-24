@@ -25,7 +25,7 @@ Touch events
 // Coluna = bloco[]
 var Game = (function () {
     function Game(id) {
-        // TODO dividir a seleção aleatória de letras entre consoantes e vogais
+        // TODO impedir de formar uma pilha única
         this.BLOCO_LARGURA = 50;
         this.BLOCO_ALTURA = 50;
         this.COLUNAS_POSICAO_X = [0, 50, 100, 150];
@@ -33,7 +33,7 @@ var Game = (function () {
         this.COLUNAS_POSICAO_Y_INICIAL = 0;
         this.LETRAS_POSICAO_Y_INICIAL = this.COLUNAS_POSICAO_Y_INICIAL + this.BLOCO_ALTURA - 10;
         this.VOGAIS = ['A', 'E', 'I', 'O', 'U'];
-        this.ALFABETO = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+        this.CONSOANTES = ['B', 'C', 'D', 'F', 'G', 'H', 'I', 'J', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Z'];
         this.COLUNAS_TAMANHO = 7;
         this.QUANTIDADE_DE_COLUNAS = 4;
         this.ALTURA_DA_TELA = 350;
@@ -49,14 +49,14 @@ var Game = (function () {
         this.context.font = "30pt Arial";
     }
     Game.prototype.criar_novo_bloco = function () {
-        var coluna_id = Math.floor(Math.random() * 4), letra_id, letra, vogal_ou_alfabeto = Math.floor(Math.random() * 4);
+        var coluna_id = Math.floor(Math.random() * 4), letra_id, letra, vogal_ou_consoante = Math.floor(Math.random() * 3);
 
-        if (vogal_ou_alfabeto == 0) {
+        if (vogal_ou_consoante == 0) {
             letra_id = Math.floor(Math.random() * 5);
             letra = this.VOGAIS[letra_id];
         } else {
-            letra_id = Math.floor(Math.random() * 26);
-            letra = this.ALFABETO[letra_id];
+            letra_id = Math.floor(Math.random() * 20);
+            letra = this.CONSOANTES[letra_id];
         }
 
         // TODO verificação de fim de jogo(quando não poder mais colocar blocos)
@@ -71,7 +71,6 @@ var Game = (function () {
         this.colunas[coluna_id].unshift([letra, this.COLUNAS_POSICAO_Y_INICIAL]);
     };
 
-    //FIX colisão está errada, sobrando espaço entre os blocos
     Game.prototype.proximo_frame = function () {
         var i, j, bloco_posterior_posicao_y, tamanho_coluna_atual, coluna_atual;
 
@@ -110,7 +109,6 @@ var Game = (function () {
 
     Game.prototype.chamar_proximo_frame = function () {
         this.proximo_frame();
-
         if (this.y == 10)
             this.game_loop = requestAnimationFrame(this.chamar_proximo_frame.bind(this));
     };
@@ -119,6 +117,9 @@ var Game = (function () {
 
 if (document.getElementById('canvasOne').getContext) {
     var game = new Game('canvasOne');
+    game.canvas.onclick = function () {
+        console.log(this.clientX, this.clientY);
+    };
     game.chamar_proximo_frame();
 } else {
     console.error('Canvas not supported');

@@ -29,7 +29,7 @@ O que é necessário?
 // Coluna = bloco[]
 
 class Game {
-    // TODO dividir a seleção aleatória de letras entre consoantes e vogais
+    // TODO impedir de formar uma pilha única
     public BLOCO_LARGURA = 50;
     public BLOCO_ALTURA = 50;
     public COLUNAS_POSICAO_X = [0, 50, 100, 150];
@@ -63,13 +63,13 @@ class Game {
         var coluna_id: number = Math.floor(Math.random() * 4), // Número entre 0 e 3
             letra_id: number, // Número entre 0 e 25
             letra: string,
-            vogal_ou_consoante: number = Math.floor(Math.random() * 4);
+            vogal_ou_consoante: number = Math.floor(Math.random() * 3); // 1/3 de sair uma vogal
 
         if(vogal_ou_consoante == 0) {
             letra_id = Math.floor(Math.random() * 5);
             letra = this.VOGAIS[letra_id];
         } else {
-            letra_id = Math.floor(Math.random() * 26);
+            letra_id = Math.floor(Math.random() * 20);
             letra = this.CONSOANTES[letra_id];
         }
 
@@ -86,7 +86,6 @@ class Game {
         this.colunas[coluna_id].unshift( [letra, this.COLUNAS_POSICAO_Y_INICIAL] );
     }
 
-    //FIX colisão está errada, sobrando espaço entre os blocos
     proximo_frame() {
         var i, j, bloco_posterior_posicao_y, tamanho_coluna_atual, coluna_atual;
         
@@ -99,8 +98,8 @@ class Game {
         }
 
         // Mover blocos se não colidir com próximo e não passar a tela
-        for(j=0; j<this.QUANTIDADE_DE_COLUNAS; j++) {
-            coluna_atual = this.colunas[j];
+        for(j=0; j<this.QUANTIDADE_DE_COLUNAS; j++) { 
+           coluna_atual = this.colunas[j];
             tamanho_coluna_atual = coluna_atual.length;
 
             if(tamanho_coluna_atual > 0) {
@@ -133,27 +132,15 @@ class Game {
     public y = 10;
     chamar_proximo_frame() {
         this.proximo_frame();
-      /*  this.y += 10;
-    if(this.y < 350) {
-        this.context.clearRect(0, 0, 500, 350);
-        this.context.fillStyle = "gray";
-        this.context.fillRect(0, this.y, 50, 50);
-
-        this.context.fillRect(50, this.y, 50, 50);
-        this.context.fillRect(100, this.y, 50, 50);
-        this.context.fillRect(150, this.y, 50, 50);
-
-    } else {
-        this.y = 10;
-    }*/
        if(this.y == 10) this.game_loop = requestAnimationFrame(this.chamar_proximo_frame.bind(this));
     }
-
-
 }
 
 if(document.getElementById('canvasOne').getContext) {
     var game = new Game('canvasOne');
+    game.canvas.onclick = function () {
+        console.log(this.clientX, this.clientY);
+    }
     game.chamar_proximo_frame();
 } else {
     console.error('Canvas not supported');
