@@ -14,18 +14,20 @@ O que é necessário?
     Blocos
         x, y, largura e altura
 
-    Colisão de blocos
+    Colisão de blocos OK
     Criação de bloco OK
     Randomização de criação de letras OK
     Identificador de palavras
-    Colisão das bordas do canvas
-    Movimentação dos blocos
+    Colisão das bordas do canvas OK
+    Movimentação dos blocos OK
+    Mouse events OK
     Touch events
 */
 
 //  id = window.requestAnimationFrame() e window.cancelAnimationFrame(id)
 
-// bloco = [letra, y]
+// esta_selecionado = 0:não, 1:sim, 2:invalido
+// bloco = [letra, y, esta_selecionado]
 // Coluna = bloco[]
 
 class Game {
@@ -54,6 +56,7 @@ class Game {
 
         // Privileged - can acess private members
         this.canvas = document.getElementById(id);
+        this.canvas.onclick = this.ao_clicar.bind(this);
         this.context = this.canvas.getContext('2d');
         this.context.textAlign = "center";
         this.context.font = "30pt Arial";
@@ -76,14 +79,12 @@ class Game {
         // TODO verificação de fim de jogo(quando não poder mais colocar blocos)
 
         // Adicionando na tela
-        this.context.fillStyle = "gray";
-        this.context.fillRect(this.COLUNAS_POSICAO_X[coluna_id], this.COLUNAS_POSICAO_Y_INICIAL, this.BLOCO_LARGURA, this.BLOCO_ALTURA);
-        this.context.fillStyle = "black";
+        this.context.strokeRect(this.COLUNAS_POSICAO_X[coluna_id], this.COLUNAS_POSICAO_Y_INICIAL, this.BLOCO_LARGURA, this.BLOCO_ALTURA);
         this.context.fillText(letra , this.LETRAS_POSICAO_X[coluna_id], this.LETRAS_POSICAO_Y_INICIAL);
 
         // Adicionando na coluna
-        console.log(coluna_id, [letra, this.COLUNAS_POSICAO_Y_INICIAL]);
-        this.colunas[coluna_id].unshift( [letra, this.COLUNAS_POSICAO_Y_INICIAL] );
+        console.log(coluna_id, [letra, this.COLUNAS_POSICAO_Y_INICIAL, 0]);
+        this.colunas[coluna_id].unshift( [letra, this.COLUNAS_POSICAO_Y_INICIAL, 0] );
     }
 
     proximo_frame() {
@@ -120,27 +121,84 @@ class Game {
                     }
 
                     // Desenhando bloco
-                    //TODO Cor do bloco(se foi selecionado ou não) será aki
-                    this.context.fillStyle = "gray";
+
+                    // Para blocas selecionados
+                    if(this.colunas[j][i][2]) {
+
+                        if(this.colunas[j][i][2] == 1) {
+                            // Letra selecionada
+                            this.context.fillStyle = "#3ADF00"; //this green for selected    
+                        } else {
+                            // Letra invalidada na formação da palavra
+                            this.colunas[j][i][2] = 0;
+                            this.context.fillStyle = "#FF0000";// this red for error
+                        }
+                        
+                        this.context.fillRect(this.COLUNAS_POSICAO_X[j], this.colunas[j][i][1], this.BLOCO_LARGURA, this.BLOCO_ALTURA);
+                        this.context.fillStyle = "black";
+                    }
+
                     this.context.strokeRect(this.COLUNAS_POSICAO_X[j], this.colunas[j][i][1], this.BLOCO_LARGURA, this.BLOCO_ALTURA);
-                    this.context.fillStyle = "black";
                     this.context.fillText(this.colunas[j][i][0], this.LETRAS_POSICAO_X[j], this.colunas[j][i][1] + this.BLOCO_ALTURA - 10);
                 }
             }
         }
     }
+
+    // Pega posicao do mouse em relação ao canvas e não a janela.
+    get_posicao_mouse(evt) {
+        var rect = this.canvas.getBoundingClientRect();
+        return {
+          x: evt.clientX - rect.left,
+          y: evt.clientY - rect.top
+        };
+    }
+
+    ao_clicar(evt) {
+        var mouse_posicao = this.get_posicao_mouse(evt),
+            id, i;
+
+        console.log(mouse_posicao.x, mouse_posicao.y);
+
+        // Procurar se algum bloco foi selecionado
+        if(mouse_posicao.x < 50) {
+            id = 0;
+        } else if(mouse_posicao.x < 100) {
+            id = 1;
+        }else if(mouse_posicao.x < 150) {
+            id = 2;
+        }else if(mouse_posicao.x < 200) {
+            id = 3;
+        }
+
+        /* Leitura de baixo p/ cima pelos seguintes motivos:
+            1. Evita uma comparação a mais no if dentro do for para ter de diferenciar as posições dos blocos
+            2. É provavel que o jogador clique primeiro nos blocos já parados(se é eficiente? não sei)
+            3. Os blocos q estiverem no ar ainda poderão ser selecionados bastando clicar na area livre da coluna desse bloco.
+                A ideia é q isso seja uma feature mas, vamos ver se na prática realmente é uma boa.
+        */
+        for(i = this.colunas[id].length-1; i>= 0; i--) {
+            if(mouse_posicao.y >= this.colunas[id][i][1]) {
+                if(this.colunas[id][i][2] === 0) {
+                    this.colunas[id][i][2] = 1;
+                } else {
+                    this.colunas[id][i][2] = 0;
+                }
+                break;
+            }
+        }
+
+    }
+
     public y = 10;
     chamar_proximo_frame() {
         this.proximo_frame();
-       if(this.y == 10) this.game_loop = requestAnimationFrame(this.chamar_proximo_frame.bind(this));
+        if(this.y == 10) this.game_loop = requestAnimationFrame(this.chamar_proximo_frame.bind(this));
     }
 }
 
 if(document.getElementById('canvasOne').getContext) {
     var game = new Game('canvasOne');
-    game.canvas.onclick = function () {
-        console.log(this.clientX, this.clientY);
-    }
     game.chamar_proximo_frame();
 } else {
     console.error('Canvas not supported');
