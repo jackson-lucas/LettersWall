@@ -1,5 +1,6 @@
 declare var document;
-
+declare var console;
+var n:number;
 /*
 "Dividir para conquistar, nada é impossível e nunca existe apenas um caminho"
 
@@ -30,6 +31,11 @@ O que é necessário?
 // bloco = [letra, y, esta_selecionado]
 // Coluna = bloco[]
 
+/* TODO criar arquivo com JSON das palavras, as palavras deverão ficar em duas listas, com as palavras
+        reodernadas com as palavras em ordem alfabetica. e outra lista com a palavra em si. 
+        Prioridade é que a primeira lista não tenha repetição, pensar se a segunda lista vai ser utilizado, se for tb deverá
+        eliminar essas repetições para não misturar os index das lista. as palavras devem está em caixa alta.
+*/
 class Game {
     // TODO impedir de formar uma pilha única
     public BLOCO_LARGURA = 50;
@@ -72,7 +78,7 @@ class Game {
             letra_id = Math.floor(Math.random() * 5);
             letra = this.VOGAIS[letra_id];
         } else {
-            letra_id = Math.floor(Math.random() * 20);
+            letra_id = Math.floor(Math.random() * 18);
             letra = this.CONSOANTES[letra_id];
         }
 
@@ -154,6 +160,17 @@ class Game {
         };
     }
 
+    remover_bloco_selecionado(id: number, pos: number) {
+        var i, length = this.blocos_selecionados.length;
+        for(i=0; i<length; i++) {
+            if (this.blocos_selecionados[i][1] == id &&
+                    this.blocos_selecionados[i][2] == pos) {
+                this.blocos_selecionados.splice(i, 1);
+                break;
+            }
+        }
+    }
+
     ao_clicar(evt) {
         var mouse_posicao = this.get_posicao_mouse(evt),
             id, i;
@@ -181,8 +198,12 @@ class Game {
             if(mouse_posicao.y >= this.colunas[id][i][1]) {
                 if(this.colunas[id][i][2] === 0) {
                     this.colunas[id][i][2] = 1;
+                    this.blocos_selecionados.push([this.colunas[id][i][0], id, i]); // [letra, coluna, posicao_na_coluna]
+                    console.table(this.blocos_selecionados);
                 } else {
                     this.colunas[id][i][2] = 0;
+                    this.remover_bloco_selecionado(id, i);
+                    console.table(this.blocos_selecionados);
                 }
                 break;
             }
@@ -200,6 +221,7 @@ class Game {
 if(document.getElementById('canvasOne').getContext) {
     var game = new Game('canvasOne');
     game.chamar_proximo_frame();
+    console.log("oi");
 } else {
     console.error('Canvas not supported');
 }

@@ -1,3 +1,5 @@
+var n;
+
 /*
 "Dividir para conquistar, nada é impossível e nunca existe apenas um caminho"
 
@@ -25,6 +27,11 @@ Touch events
 // esta_selecionado = 0:não, 1:sim, 2:invalido
 // bloco = [letra, y, esta_selecionado]
 // Coluna = bloco[]
+/* TODO criar arquivo com JSON das palavras, as palavras deverão ficar em duas listas, com as palavras
+reodernadas com as palavras em ordem alfabetica. e outra lista com a palavra em si.
+Prioridade é que a primeira lista não tenha repetição, pensar se a segunda lista vai ser utilizado, se for tb deverá
+eliminar essas repetições para não misturar os index das lista. as palavras devem está em caixa alta.
+*/
 var Game = (function () {
     function Game(id) {
         // TODO impedir de formar uma pilha única
@@ -58,7 +65,7 @@ var Game = (function () {
             letra_id = Math.floor(Math.random() * 5);
             letra = this.VOGAIS[letra_id];
         } else {
-            letra_id = Math.floor(Math.random() * 20);
+            letra_id = Math.floor(Math.random() * 18);
             letra = this.CONSOANTES[letra_id];
         }
 
@@ -127,6 +134,16 @@ var Game = (function () {
         };
     };
 
+    Game.prototype.remover_bloco_selecionado = function (id, pos) {
+        var i, length = this.blocos_selecionados.length;
+        for (i = 0; i < length; i++) {
+            if (this.blocos_selecionados[i][1] == id && this.blocos_selecionados[i][2] == pos) {
+                this.blocos_selecionados.splice(i, 1);
+                break;
+            }
+        }
+    };
+
     Game.prototype.ao_clicar = function (evt) {
         var mouse_posicao = this.get_posicao_mouse(evt), id, i;
 
@@ -146,8 +163,12 @@ var Game = (function () {
             if (mouse_posicao.y >= this.colunas[id][i][1]) {
                 if (this.colunas[id][i][2] === 0) {
                     this.colunas[id][i][2] = 1;
+                    this.blocos_selecionados.push([this.colunas[id][i][0], id, i]);
+                    console.table(this.blocos_selecionados);
                 } else {
                     this.colunas[id][i][2] = 0;
+                    this.remover_bloco_selecionado(id, i);
+                    console.table(this.blocos_selecionados);
                 }
                 break;
             }
@@ -165,6 +186,8 @@ var Game = (function () {
 if (document.getElementById('canvasOne').getContext) {
     var game = new Game('canvasOne');
     game.chamar_proximo_frame();
+    console.log("oi");
 } else {
     console.error('Canvas not supported');
 }
+//# sourceMappingURL=index.js.map
