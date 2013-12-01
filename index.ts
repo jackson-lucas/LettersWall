@@ -31,7 +31,6 @@ O que é necessário?
 // Coluna = bloco[]
 
 class Game {
-    // TODO impedir de formar uma pilha única
     public BLOCO_LARGURA = 50;
     public BLOCO_ALTURA = 50;
     public COLUNAS_POSICAO_X = [0, 50, 100, 150];
@@ -51,6 +50,7 @@ class Game {
     public game_loop;
     public velocidade: number = 10; // 10 pixels/frame
     public criar_vogal: boolean = false;
+    public acabar_jogo: boolean = false;
 
     constructor (id: string) {
         // Private members
@@ -63,34 +63,57 @@ class Game {
         this.context.font = "30pt Arial";
     }
 
+    esta_cheia_coluna(id: number) {
+        if (this.colunas[id][0] == undefined || this.colunas[id].length < this.COLUNAS_TAMANHO) {
+            return false;
+        }
+        return true;
+    }
+
     criar_novo_bloco() {
         var coluna_id: number = Math.floor(Math.random() * 4), // Número entre 0 e 3
             letra_id: number,
-            letra: string;
+            letra: string,
+            quantidade_colunas_cheias: number = 0;
 
-        if(this.criar_vogal) {
-            letra_id = Math.floor(Math.random() * this.VOGAIS.length);
-            letra = this.VOGAIS[letra_id];
-        } else {
-            letra_id = Math.floor(Math.random() * this.CONSOANTES.length);
-            letra = this.CONSOANTES[letra_id];
+        // Checagem se a colunas escolhida tem espaço e se o jogo acabou(4 colunas cheias)
+        while(this.esta_cheia_coluna(coluna_id)) {
+
+            quantidade_colunas_cheias++;
+            if(quantidade_colunas_cheias >= 4) {
+                if(this.colunas[0][0][1] >= 0 && this.colunas[1][0][1] >= 0 
+                        && this.colunas[2][0][1] >= 0 && this.colunas[3][0][1] >= 0) {
+                    this.acabar_jogo = true;
+                }
+                // Situação em que todas as colunas estão cheias porém o muro não foi completado
+                return;
+            }
+
+            if(coluna_id == this.QUANTIDADE_DE_COLUNAS - 1) {
+                coluna_id = 0;
+            } else {
+                coluna_id++;
+            }
         }
-        this.criar_vogal = !this.criar_vogal;
+        
+        if(!this.acabar_jogo) {
+            // Determinação se vai ser consoante ou vogal e qual será.
+            if(this.criar_vogal) {
+                letra_id = Math.floor(Math.random() * this.VOGAIS.length);
+                letra = this.VOGAIS[letra_id];
+            } else {
+                letra_id = Math.floor(Math.random() * this.CONSOANTES.length);
+                letra = this.CONSOANTES[letra_id];
+            }
+            this.criar_vogal = !this.criar_vogal;
 
-        // TODO verificação de fim de jogo(quando não poder mais colocar blocos)
+            // Adicionando na tela
+            this.context.strokeRect(this.COLUNAS_POSICAO_X[coluna_id], this.COLUNAS_POSICAO_Y_INICIAL, this.BLOCO_LARGURA, this.BLOCO_ALTURA);
+            this.context.fillText(letra , this.LETRAS_POSICAO_X[coluna_id], this.LETRAS_POSICAO_Y_INICIAL);
 
-        // Adicionando na tela
-        this.context.strokeRect(this.COLUNAS_POSICAO_X[coluna_id], this.COLUNAS_POSICAO_Y_INICIAL, this.BLOCO_LARGURA, this.BLOCO_ALTURA);
-        this.context.fillText(letra , this.LETRAS_POSICAO_X[coluna_id], this.LETRAS_POSICAO_Y_INICIAL);
-
-        // Adicionando na coluna
-        console.log(coluna_id, [letra, this.COLUNAS_POSICAO_Y_INICIAL, 0]);
-        this.colunas[coluna_id].unshift( [letra, this.COLUNAS_POSICAO_Y_INICIAL, 0] );
-    }
-
-    esta_cheia_coluna(id: number) {
-        if (this.colunas[id][0] != undefined || this.colunas[id][0]) {
-            return false;
+            // Adicionando na coluna
+            console.log(coluna_id, [letra, this.COLUNAS_POSICAO_Y_INICIAL, 0]);
+            this.colunas[coluna_id].unshift( [letra, this.COLUNAS_POSICAO_Y_INICIAL, 0] );
         }
     }
 
@@ -99,11 +122,7 @@ class Game {
         
         this.context.clearRect(0, 0, 200, 350);
 
-        // Se não tiver bloco na posição inicial, criar novo bloco
-        if((this.colunas[0][0]==undefined || this.colunas[0][0][1] >= 50) && (this.colunas[1][0]==undefined || this.colunas[1][0][1] >= 50) && 
-                (this.colunas[2][0]==undefined || this.colunas[2][0][1] >= 50) && (this.colunas[3][0]==undefined || this.colunas[3][0][1] >= 50)) {
-            this.criar_novo_bloco();
-        }
+        this.criar_novo_bloco();
 
         // Mover blocos se não colidir com próximo e não passar a tela
         for(j=0; j<this.QUANTIDADE_DE_COLUNAS; j++) { 
@@ -196,11 +215,11 @@ class Game {
         }
 
     }
-
-    public y = 10;
     chamar_proximo_frame() {
         this.proximo_frame();
-        if(this.y == 10) this.game_loop = requestAnimationFrame(this.chamar_proximo_frame.bind(this));
+        if(!this.acabar_jogo) {
+            requestAnimationFrame(this.chamar_proximo_frame.bind(this));
+        }
     }
 }
 

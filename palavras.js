@@ -28634,3 +28634,4 @@ var palavras = ["A",
 "ZUNZUM",
 "ZURETA",
 "ZURRAR"];
+

@@ -43,7 +43,7 @@ var Game = (function () {
         this.blocos_selecionados = [];
         this.velocidade = 10;
         this.criar_vogal = false;
-        this.y = 10;
+        this.acabar_jogo = false;
         // Private members
         // Privileged - can acess private members
         this.canvas = document.getElementById(id);
@@ -52,26 +52,53 @@ var Game = (function () {
         this.context.textAlign = "center";
         this.context.font = "30pt Arial";
     }
-    Game.prototype.criar_novo_bloco = function () {
-        var coluna_id = Math.floor(Math.random() * 4), letra_id, letra;
-
-        if (this.criar_vogal) {
-            letra_id = Math.floor(Math.random() * this.VOGAIS.length);
-            letra = this.VOGAIS[letra_id];
-        } else {
-            letra_id = Math.floor(Math.random() * this.CONSOANTES.length);
-            letra = this.CONSOANTES[letra_id];
+    Game.prototype.esta_cheia_coluna = function (id) {
+        if (this.colunas[id][0] == undefined || this.colunas[id].length < this.COLUNAS_TAMANHO) {
+            return false;
         }
-        this.criar_vogal = !this.criar_vogal;
+        return true;
+    };
 
-        // TODO verificação de fim de jogo(quando não poder mais colocar blocos)
-        // Adicionando na tela
-        this.context.strokeRect(this.COLUNAS_POSICAO_X[coluna_id], this.COLUNAS_POSICAO_Y_INICIAL, this.BLOCO_LARGURA, this.BLOCO_ALTURA);
-        this.context.fillText(letra, this.LETRAS_POSICAO_X[coluna_id], this.LETRAS_POSICAO_Y_INICIAL);
+    Game.prototype.criar_novo_bloco = function () {
+        var coluna_id = Math.floor(Math.random() * 4), letra_id, letra, quantidade_colunas_cheias = 0;
 
-        // Adicionando na coluna
-        console.log(coluna_id, [letra, this.COLUNAS_POSICAO_Y_INICIAL, 0]);
-        this.colunas[coluna_id].unshift([letra, this.COLUNAS_POSICAO_Y_INICIAL, 0]);
+        while (this.esta_cheia_coluna(coluna_id)) {
+            quantidade_colunas_cheias++;
+            if (quantidade_colunas_cheias >= 4) {
+                if (this.colunas[0][0][1] >= 0 && this.colunas[1][0][1] >= 0 && this.colunas[2][0][1] >= 0 && this.colunas[3][0][1] >= 0) {
+                    this.acabar_jogo = true;
+                }
+
+                // Situação em que todas as colunas estão cheias porém o muro não foi completado
+                return;
+            }
+
+            if (coluna_id == this.QUANTIDADE_DE_COLUNAS - 1) {
+                coluna_id = 0;
+            } else {
+                coluna_id++;
+            }
+        }
+
+        if (!this.acabar_jogo) {
+            if (this.criar_vogal) {
+                letra_id = Math.floor(Math.random() * this.VOGAIS.length);
+                letra = this.VOGAIS[letra_id];
+            } else {
+                letra_id = Math.floor(Math.random() * this.CONSOANTES.length);
+                letra = this.CONSOANTES[letra_id];
+            }
+            this.criar_vogal = !this.criar_vogal;
+
+            // TODO verificação de fim de jogo(quando não poder mais colocar blocos)
+            // Adicionando na tela
+            this.context.strokeRect(this.COLUNAS_POSICAO_X[coluna_id], this.COLUNAS_POSICAO_Y_INICIAL, this.BLOCO_LARGURA, this.BLOCO_ALTURA);
+            this.context.fillText(letra, this.LETRAS_POSICAO_X[coluna_id], this.LETRAS_POSICAO_Y_INICIAL);
+
+            // Adicionando na coluna
+            console.log(coluna_id, [letra, this.COLUNAS_POSICAO_Y_INICIAL, 0]);
+            this.colunas[coluna_id].unshift([letra, this.COLUNAS_POSICAO_Y_INICIAL, 0]);
+        }
     };
 
     Game.prototype.proximo_frame = function () {
@@ -79,9 +106,7 @@ var Game = (function () {
 
         this.context.clearRect(0, 0, 200, 350);
 
-        if ((this.colunas[0][0] == undefined || this.colunas[0][0][1] >= 50) && (this.colunas[1][0] == undefined || this.colunas[1][0][1] >= 50) && (this.colunas[2][0] == undefined || this.colunas[2][0][1] >= 50) && (this.colunas[3][0] == undefined || this.colunas[3][0][1] >= 50)) {
-            this.criar_novo_bloco();
-        }
+        this.criar_novo_bloco();
 
         for (j = 0; j < this.QUANTIDADE_DE_COLUNAS; j++) {
             coluna_atual = this.colunas[j];
@@ -155,11 +180,11 @@ var Game = (function () {
             }
         }
     };
-
     Game.prototype.chamar_proximo_frame = function () {
         this.proximo_frame();
-        if (this.y == 10)
-            this.game_loop = requestAnimationFrame(this.chamar_proximo_frame.bind(this));
+        if (!this.acabar_jogo) {
+            requestAnimationFrame(this.chamar_proximo_frame.bind(this));
+        }
     };
     return Game;
 })();
