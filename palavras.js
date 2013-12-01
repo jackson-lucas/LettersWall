@@ -28635,3 +28635,81 @@ var palavras = ["A",
 "ZURETA",
 "ZURRAR"];
 
+
+var i, palavras_length = palavras.length, palavra, j, length_palavra, palavras_array = [], array_length;
+
+// String para Array
+for(i = 0; i<palavras_length; i++) {
+    palavra = palavras[i];
+    palavras_array[i] = [];
+    length_palavra = palavra.length;
+
+    for(j = 0; j<length_palavra; j++) {
+        palavras_array[i].push(palavra[j]);
+    }
+}
+
+function quickSort(vet, esq, dir){
+    var ce = esq;
+    var cd = dir;
+    var meio = parseInt((ce + cd)/ 2);                          
+    while(ce < cd){
+        while(vet[ce] < vet[meio]){
+            ce++;                               
+        }
+        while(vet[cd] > vet[meio]){
+            cd--;
+        }
+        if(ce <= cd){
+            var temp = vet[ce];
+            vet[ce] = vet[cd];
+            vet[cd] = temp;
+            ce++;
+            cd--;
+        }                       
+    }
+    if(cd > esq)
+        quickSort(vet, esq, cd);                
+ 
+    if(ce < dir)
+        quickSort(vet, ce, dir);                
+}
+
+array_length = palavras_array.length;
+
+// Quicksort
+for(i=0; i<palavras_array.length; i++) {
+    var esq = 0;
+    var dir = palavras_array[i].length - 1; //indice máximo do array
+    quickSort(palavras_array[i], esq, dir);
+}
+var lista_palavras = [];
+
+for (var i = palavras_array.length - 1; i >= 0; i--) {
+    palavras_array[i] = palavras_array[i].toString().replace(/,/g, "");
+}
+var alfabeto = ['A','B','C','D','E','F','G','H','I','J','L','M','N','O','P','R','S','T','U','V','X','Z'];
+console.log(palavras_array);
+
+for (j = 0; j < alfabeto.length ; j++) {
+    lista_palavras[j] = [];
+    for(i=0; i<palavras_array.length; i++) {
+        if(palavras_array[i][0] == alfabeto[j]) {
+            lista_palavras[j].push(palavras_array[i]);
+        }
+    }
+}
+
+function menor (a, b) {
+    return a.length - b.length;
+}
+
+for(i=0; i<lista_palavras.length; i++) {
+    lista_palavras[i].sort(menor);
+}
+
+/* 1º colocar as letras das palavras em ordem alfabetica OK
+    2º remover palavras repetidas OK
+    3º dividar palavras por letra inicial(indexar) OK
+    4º ordenar palavras por tamanho(indexar? ou atalho?) - Falta indexar
+*/
