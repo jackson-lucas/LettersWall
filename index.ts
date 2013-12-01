@@ -36,10 +36,10 @@ class Game {
     public BLOCO_ALTURA = 50;
     public COLUNAS_POSICAO_X = [0, 50, 100, 150];
     public LETRAS_POSICAO_X = [25, 75, 125, 175];
-    public COLUNAS_POSICAO_Y_INICIAL = 0; // -40 é o valor oficial
+    public COLUNAS_POSICAO_Y_INICIAL = -50; // -50 é o valor oficial
     public LETRAS_POSICAO_Y_INICIAL = this.COLUNAS_POSICAO_Y_INICIAL + this.BLOCO_ALTURA - 10;
     public VOGAIS = ['A', 'E', 'I', 'O', 'U'];
-    public CONSOANTES = ['B', 'C', 'D', 'F', 'G', 'H', 'I', 'J', 'L', 'M', 'N', 'P', 'Q', 'R', 'S','T', 'U', 'V', 'X', 'Z'];
+    public CONSOANTES = ['B', 'C', 'D', 'F', 'G', 'H', 'J', 'L', 'M', 'N', 'P', 'Q', 'R', 'S','T', 'V', 'X', 'Z'];
     public COLUNAS_TAMANHO = 7;
     public QUANTIDADE_DE_COLUNAS = 4;
     public ALTURA_DA_TELA = 350; // Pixels
@@ -50,6 +50,7 @@ class Game {
     public context;
     public game_loop;
     public velocidade: number = 10; // 10 pixels/frame
+    public criar_vogal: boolean = false;
 
     constructor (id: string) {
         // Private members
@@ -64,17 +65,17 @@ class Game {
 
     criar_novo_bloco() {
         var coluna_id: number = Math.floor(Math.random() * 4), // Número entre 0 e 3
-            letra_id: number, // Número entre 0 e 25
-            letra: string,
-            vogal_ou_consoante: number = Math.floor(Math.random() * 3); // 1/3 de sair uma vogal
+            letra_id: number,
+            letra: string;
 
-        if(vogal_ou_consoante == 0) {
-            letra_id = Math.floor(Math.random() * 5);
+        if(this.criar_vogal) {
+            letra_id = Math.floor(Math.random() * this.VOGAIS.length);
             letra = this.VOGAIS[letra_id];
         } else {
-            letra_id = Math.floor(Math.random() * 20);
+            letra_id = Math.floor(Math.random() * this.CONSOANTES.length);
             letra = this.CONSOANTES[letra_id];
         }
+        this.criar_vogal = !this.criar_vogal;
 
         // TODO verificação de fim de jogo(quando não poder mais colocar blocos)
 
@@ -85,6 +86,12 @@ class Game {
         // Adicionando na coluna
         console.log(coluna_id, [letra, this.COLUNAS_POSICAO_Y_INICIAL, 0]);
         this.colunas[coluna_id].unshift( [letra, this.COLUNAS_POSICAO_Y_INICIAL, 0] );
+    }
+
+    esta_cheia_coluna(id: number) {
+        if (this.colunas[id][0] != undefined || this.colunas[id][0]) {
+            return false;
+        }
     }
 
     proximo_frame() {

@@ -32,16 +32,17 @@ var Game = (function () {
         this.BLOCO_ALTURA = 50;
         this.COLUNAS_POSICAO_X = [0, 50, 100, 150];
         this.LETRAS_POSICAO_X = [25, 75, 125, 175];
-        this.COLUNAS_POSICAO_Y_INICIAL = 0;
+        this.COLUNAS_POSICAO_Y_INICIAL = -50;
         this.LETRAS_POSICAO_Y_INICIAL = this.COLUNAS_POSICAO_Y_INICIAL + this.BLOCO_ALTURA - 10;
         this.VOGAIS = ['A', 'E', 'I', 'O', 'U'];
-        this.CONSOANTES = ['B', 'C', 'D', 'F', 'G', 'H', 'I', 'J', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Z'];
+        this.CONSOANTES = ['B', 'C', 'D', 'F', 'G', 'H', 'J', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'X', 'Z'];
         this.COLUNAS_TAMANHO = 7;
         this.QUANTIDADE_DE_COLUNAS = 4;
         this.ALTURA_DA_TELA = 350;
         this.colunas = [[], [], [], []];
         this.blocos_selecionados = [];
         this.velocidade = 10;
+        this.criar_vogal = false;
         this.y = 10;
         // Private members
         // Privileged - can acess private members
@@ -52,15 +53,16 @@ var Game = (function () {
         this.context.font = "30pt Arial";
     }
     Game.prototype.criar_novo_bloco = function () {
-        var coluna_id = Math.floor(Math.random() * 4), letra_id, letra, vogal_ou_consoante = Math.floor(Math.random() * 3);
+        var coluna_id = Math.floor(Math.random() * 4), letra_id, letra;
 
-        if (vogal_ou_consoante == 0) {
-            letra_id = Math.floor(Math.random() * 5);
+        if (this.criar_vogal) {
+            letra_id = Math.floor(Math.random() * this.VOGAIS.length);
             letra = this.VOGAIS[letra_id];
         } else {
-            letra_id = Math.floor(Math.random() * 20);
+            letra_id = Math.floor(Math.random() * this.CONSOANTES.length);
             letra = this.CONSOANTES[letra_id];
         }
+        this.criar_vogal = !this.criar_vogal;
 
         // TODO verificação de fim de jogo(quando não poder mais colocar blocos)
         // Adicionando na tela
