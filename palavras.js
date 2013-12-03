@@ -28683,23 +28683,36 @@ for(i=0; i<palavras_array.length; i++) {
     var dir = palavras_array[i].length - 1; //indice máximo do array
     quickSort(palavras_array[i], esq, dir);
 }
-var lista_palavras = [];
+var lista_palavras = {};
 
-for (var i = palavras_array.length - 1; i >= 0; i--) {
+for (i = palavras_array.length - 1; i >= 0; i--) {
     palavras_array[i] = palavras_array[i].toString().replace(/,/g, "");
 }
 var alfabeto = ['A','B','C','D','E','F','G','H','I','J','L','M','N','O','P','R','S','T','U','V','X','Z'];
-console.log(palavras_array);
 
-for (j = 0; j < alfabeto.length ; j++) {
-    lista_palavras[j] = [];
-    for(i=0; i<palavras_array.length; i++) {
-        if(palavras_array[i][0] == alfabeto[j]) {
-            lista_palavras[j].push(palavras_array[i]);
+for (i = palavras_array.length-1; i >= 0; i--) {
+    for (j = i-1; j >= 0 ; j--) {
+        if(palavras_array[i] == palavras_array[j]) {
+            palavras_array.splice(j,1);
+            j++;
         }
     }
 }
 
+for (j = 0; j < alfabeto.length ; j++) {
+    lista_palavras[ alfabeto[j] ] = [];
+    for(i=0; i<palavras_array.length; i++) {
+        if(palavras_array[i][0] == alfabeto[j]) {
+            if(lista_palavras[ alfabeto[j] ][ palavras_array[i].length-1 ] == undefined) {
+                lista_palavras[ alfabeto[j] ][ palavras_array[i].length-1 ] = [];
+            }
+            lista_palavras[ alfabeto[j] ][ palavras_array[i].length-1 ].push(palavras_array[i]);
+        }
+    }
+}
+var palavras_json = JSON.stringify(lista_palavras);
+console.log(palavras_json);
+/*
 function menor (a, b) {
     return a.length - b.length;
 }
@@ -28708,8 +28721,18 @@ for(i=0; i<lista_palavras.length; i++) {
     lista_palavras[i].sort(menor);
 }
 
+console.log(lista_palavras);
+*/
 /* 1º colocar as letras das palavras em ordem alfabetica OK
     2º remover palavras repetidas OK
     3º dividar palavras por letra inicial(indexar) OK
-    4º ordenar palavras por tamanho(indexar? ou atalho?) - Falta indexar
+    4º ordenar palavras por tamanho(indexar? ou atalho?) OK
+
+    palavras = {
+        a: [tamanho da palavra];
+    
+    }
+
+    exemplo de colocação do "aabco"(length = 5)
+    palavras["a"][length-1].push("aabco");
 */

@@ -1,4 +1,5 @@
 declare var document;
+declare var console;
 
 /*
 "Dividir para conquistar, nada é impossível e nunca existe apenas um caminho"
