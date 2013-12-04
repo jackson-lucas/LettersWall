@@ -1,5 +1,7 @@
 declare var document;
 declare var console;
+declare var PALAVRAS_JSON
+declare var blocos_selecionados;
 
 /*
 "Dividir para conquistar, nada é impossível e nunca existe apenas um caminho"
@@ -31,11 +33,6 @@ O que é necessário?
 // bloco = [letra, y, esta_selecionado]
 // Coluna = bloco[]
 
-/* TODO criar arquivo com JSON das palavras, as palavras deverão ficar em duas listas, com as palavras
-        reodernadas com as palavras em ordem alfabetica. e outra lista com a palavra em si. 
-        Prioridade é que a primeira lista não tenha repetição, pensar se a segunda lista vai ser utilizado, se for tb deverá
-        eliminar essas repetições para não misturar os index das lista. as palavras devem está em caixa alta.
-*/
 class Game {
     public BLOCO_LARGURA = 50;
     public BLOCO_ALTURA = 50;
@@ -48,25 +45,29 @@ class Game {
     public COLUNAS_TAMANHO = 7;
     public QUANTIDADE_DE_COLUNAS = 4;
     public ALTURA_DA_TELA = 350; // Pixels
+    public PALAVRAS = JSON.parse(PALAVRAS_JSON); // Requer palavras.js
 
     public colunas = [[],[],[],[]];
-    public blocos_selecionados: number[][] = [];
+    public blocos_selecionados = [];
     public canvas;
     public context;
     public game_loop;
+    public botao_ok;
     public velocidade: number = 10; // 10 pixels/frame
     public criar_vogal: boolean = false;
     public acabar_jogo: boolean = false;
 
-    constructor (id: string) {
+    constructor (canvas_id: string, botao_ok_id: string) {
         // Private members
 
         // Privileged - can acess private members
-        this.canvas = document.getElementById(id);
+        this.canvas = document.getElementById(canvas_id);
         this.canvas.onclick = this.ao_clicar.bind(this);
         this.context = this.canvas.getContext('2d');
         this.context.textAlign = "center";
         this.context.font = "30pt Arial";
+        this.botao_ok = document.getElementById(botao_ok_id);
+        this.botao_ok.onclick = this.ao_confirmar.bind(this);
     }
 
     esta_cheia_coluna(id: number) {
@@ -197,6 +198,19 @@ class Game {
         }
     }
 
+    ordenacao_crescente_por_letra() {
+        var i;
+
+        for(i=this.blocos_selecionados.length-1; i>=0; i--) {
+            this.blocos_selecionados[i][0] > this.blocos_selecionados[i][0];s
+        }
+    }
+
+    // TODO criar listener para botão OK verificar se a palavra está correta e manipular arrays conforme precisar
+    ao_confirmar() {
+        this.blocos_selecionados.sort(this.ordenacao_crescente_por_letra);
+    }
+
     ao_clicar(evt) {
         var mouse_posicao = this.get_posicao_mouse(evt),
             id, i;
@@ -236,14 +250,14 @@ class Game {
     }
     chamar_proximo_frame() {
         this.proximo_frame();
-        if(!this.acabar_jogo) {
+        //if(!this.acabar_jogo) {
             requestAnimationFrame(this.chamar_proximo_frame.bind(this));
-        }
+        //}
     }
 }
 
 if(document.getElementById('canvasOne').getContext) {
-    var game = new Game('canvasOne');
+    var game = new Game('canvasOne', 'OK');
     game.chamar_proximo_frame();
 } else {
     console.error('Canvas not supported');

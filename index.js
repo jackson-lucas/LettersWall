@@ -25,13 +25,9 @@ Touch events
 // esta_selecionado = 0:não, 1:sim, 2:invalido
 // bloco = [letra, y, esta_selecionado]
 // Coluna = bloco[]
-/* TODO criar arquivo com JSON das palavras, as palavras deverão ficar em duas listas, com as palavras
-reodernadas com as palavras em ordem alfabetica. e outra lista com a palavra em si.
-Prioridade é que a primeira lista não tenha repetição, pensar se a segunda lista vai ser utilizado, se for tb deverá
-eliminar essas repetições para não misturar os index das lista. as palavras devem está em caixa alta.
-*/
+// bloco_selecionado = [letra, coluna_id, posicao_id]
 var Game = (function () {
-    function Game(id) {
+    function Game(canvas_id, botao_ok_id) {
         this.BLOCO_LARGURA = 50;
         this.BLOCO_ALTURA = 50;
         this.COLUNAS_POSICAO_X = [0, 50, 100, 150];
@@ -43,18 +39,20 @@ var Game = (function () {
         this.COLUNAS_TAMANHO = 7;
         this.QUANTIDADE_DE_COLUNAS = 4;
         this.ALTURA_DA_TELA = 350;
+        this.DICIONARIO = JSON.parse(DICIONARIO_JSON);
         this.colunas = [[], [], [], []];
         this.blocos_selecionados = [];
         this.velocidade = 10;
         this.criar_vogal = false;
         this.acabar_jogo = false;
-        // Private members
-        // Privileged - can acess private members
-        this.canvas = document.getElementById(id);
+
+        this.canvas = document.getElementById(canvas_id);
         this.canvas.onclick = this.ao_clicar.bind(this);
         this.context = this.canvas.getContext('2d');
         this.context.textAlign = "center";
         this.context.font = "30pt Arial";
+        this.botao_ok = document.getElementById(botao_ok_id);
+        this.botao_ok.onclick = this.ao_confirmar.bind(this);
     }
     Game.prototype.esta_cheia_coluna = function (id) {
         if (this.colunas[id][0] == undefined || this.colunas[id].length < this.COLUNAS_TAMANHO) {
@@ -157,13 +155,64 @@ var Game = (function () {
         };
     };
 
-    Game.prototype.remover_bloco_selecionado = function (id, pos) {
+    Game.prototype.remover_bloco_dos_selecionado = function (id, pos) {
         var i, length = this.blocos_selecionados.length;
         for (i = 0; i < length; i++) {
             if (this.blocos_selecionados[i][1] == id && this.blocos_selecionados[i][2] == pos) {
                 this.blocos_selecionados.splice(i, 1);
                 break;
             }
+        }
+    };
+
+    Game.prototype.ordenacao_crescente_por_letra = function (bloco1, bloco2) {
+        return bloco1[0] > bloco2[0];
+    };
+
+    Game.prototype.remover_blocos_selecionados = function() {
+        var i;
+
+        for (i = this.blocos_selecionados.length - 1; i >= 0; i--) {
+            this.colunas[ this.blocos_selecionados[i][1] ].splice(this.blocos_selecionados[i][2], 1);
+        }
+        this.blocos_selecionados = [];
+    };
+
+    // FIXME ao confirmar uma palavra ainda permaneceu e selecionada mesmo não estando no array blocos_selecionados.
+    Game.prototype.ao_confirmar = function () {
+        var palavra_a_procurar = "", i, blocos_selecionados_tamanho = this.blocos_selecionados.length, lista_das_palavras, lista_das_palavras_tamanho;
+
+        if(blocos_selecionados_tamanho > 0) {
+            this.blocos_selecionados.sort(this.ordenacao_crescente_por_letra);
+            
+            for (i = 0; i < blocos_selecionados_tamanho; i++) {
+                palavra_a_procurar += this.blocos_selecionados[i][0];
+            }
+
+            // Procurando palavra no dicionário
+            if(this.DICIONARIO[ palavra_a_procurar[0] ] != undefined) {
+                
+                lista_das_palavras = this.DICIONARIO[ palavra_a_procurar[0] ][ blocos_selecionados_tamanho-1 ];
+                if(lista_das_palavras != undefined) {
+
+                    lista_das_palavras_tamanho = lista_das_palavras.length;
+                    for(i=0; i<lista_das_palavras_tamanho; i++) {
+                        if(lista_das_palavras[i] == palavra_a_procurar) {
+                            this.remover_blocos_selecionados();
+                            // TODO sistema de pontuação
+                            console.log("existe");
+                            return;
+                        }
+                    }
+                }
+            }
+
+            // Caso não tenha achado
+            for (i = 0; i < blocos_selecionados_tamanho; i++) {
+                this.colunas[ this.blocos_selecionados[i][1] ][ this.blocos_selecionados[i][2] ][2] = 2;
+            }
+            this.blocos_selecionados = [];
+            console.log("não existe");
         }
     };
 
@@ -187,28 +236,28 @@ var Game = (function () {
                 if (this.colunas[id][i][2] === 0) {
                     this.colunas[id][i][2] = 1;
                     this.blocos_selecionados.push([this.colunas[id][i][0], id, i]);
-                    console.table(this.blocos_selecionados);
                 } else {
                     this.colunas[id][i][2] = 0;
+                    this.remover_bloco_dos_selecionado(id, i);
                 }
+                console.table(this.blocos_selecionados);
                 break;
             }
         }
     };
     Game.prototype.chamar_proximo_frame = function () {
         this.proximo_frame();
-        if (!this.acabar_jogo) {
-            requestAnimationFrame(this.chamar_proximo_frame.bind(this));
-        }
+
+        //if(!this.acabar_jogo) {
+        requestAnimationFrame(this.chamar_proximo_frame.bind(this));
+        //}
     };
     return Game;
 })();
 
 if (document.getElementById('canvasOne').getContext) {
-    var game = new Game('canvasOne');
+    var game = new Game('canvasOne', 'OK');
     game.chamar_proximo_frame();
 } else {
     console.error('Canvas not supported');
 }
-
-console.log(PALAVRAS);
