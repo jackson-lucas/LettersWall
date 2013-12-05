@@ -173,14 +173,15 @@ var Game = (function () {
         var i;
         console.log("removendo:");
         for (i = this.blocos_selecionados.length - 1; i >= 0; i--) {
-            console.log(this.colunas[this.blocos_selecionados[i][1]][this.blocos_selecionados[i][2]], this.blocos_selecionados[i][1], this.blocos_selecionados[i][2]);
+            console.log("Letra: " + this.colunas[this.blocos_selecionados[i][1]][this.blocos_selecionados[i][2]] + " Coluna: " + this.blocos_selecionados[i][1] + " Posição: " + this.blocos_selecionados[i][2]);
             this.colunas[ this.blocos_selecionados[i][1] ].splice(this.blocos_selecionados[i][2], 1);
 
         }
         this.blocos_selecionados = [];
     };
 
-    // FIXME ao confirmar uma palavra ainda permaneceu e selecionada mesmo não estando no array blocos_77selecionados.
+    // FIXME ao confirmar uma palavra ainda permaneceu e selecionada mesmo não estando no array blocos_selecionados.
+    // Uma maneira seria reodernar blocos_selecionados para que letras numa mesma coluna, seja garantido que a com index maior seja removido primeiro
     Game.prototype.ao_confirmar = function () {
         var palavra_a_procurar = "", i, blocos_selecionados_tamanho = this.blocos_selecionados.length, lista_das_palavras, lista_das_palavras_tamanho;
 
