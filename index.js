@@ -180,8 +180,11 @@ var Game = (function () {
         this.blocos_selecionados = [];
     };
 
-    // FIXME ao confirmar uma palavra ainda permaneceu e selecionada mesmo não estando no array blocos_selecionados.
-    // Uma maneira seria reodernar blocos_selecionados para que letras numa mesma coluna, seja garantido que a com index maior seja removido primeiro
+    Game.prototype.maior_index = function(bloco_selecionado1, bloco_selecionado2) {
+        return bloco_selecionado1[2] - bloco_selecionado2[2];
+    };
+
+    // bloco_selecionado = [letra, coluna_id, posicao_id]
     Game.prototype.ao_confirmar = function () {
         var palavra_a_procurar = "", i, blocos_selecionados_tamanho = this.blocos_selecionados.length, lista_das_palavras, lista_das_palavras_tamanho;
 
@@ -200,9 +203,14 @@ var Game = (function () {
 
                     lista_das_palavras_tamanho = lista_das_palavras.length;
                     for(i=0; i<lista_das_palavras_tamanho; i++) {
+
+                        // Se achar a palavra
                         if(lista_das_palavras[i] == palavra_a_procurar) {
                             console.log("palavra: " + palavra_a_procurar);
+                            this.blocos_selecionados.sort(this.maior_index);
+                            console.log("Blocos reoodernados: " + this.blocos_selecionados);
                             this.remover_blocos_selecionados();
+                            
                             // TODO sistema de pontuação
                             return;
                         }
