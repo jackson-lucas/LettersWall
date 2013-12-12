@@ -15,19 +15,51 @@ x, y, largura e altura
 Colisão de blocos OK
 Criação de bloco OK
 Randomização de criação de letras OK
-Identificador de palavras
+Identificador de palavras OK
 Colisão das bordas do canvas OK
 Movimentação dos blocos OK
 Mouse events OK
 Touch events
+
+
+Ideias:
+    - Pode ter um botao para remover uma linha, caso tenha essa opção
+    - Verificar se existe alguma pesquisa de quais consoantes e vogais mais aparecem em nosso idioma
+
 */
 //  id = window.requestAnimationFrame() e window.cancelAnimationFrame(id)
 // esta_selecionado = 0:não, 1:sim, 2:invalido
 // bloco = [letra, y, esta_selecionado]
 // Coluna = bloco[]
 // bloco_selecionado = [letra, coluna_id, posicao_id]
+
+// TODO verificar suporte do Tizen para Web Audio API
+// TODO Blocos responsivos
+// TODO Carregamento do audio
+// TODO Implementação do audio
+// TODO Construção do menu
+// TODO Construção do 'ajuda'
 var Game = (function () {
     function Game(canvas_id, botao_ok_id) {
+        // Private members
+        var that = this;
+        var pontuacao = 0;
+
+        function pontuar() {
+            var blocos_selecionados_tamanho = that.blocos_selecionados.length;
+
+            if(blocos_selecionados_tamanho > 1) {
+                pontuacao += blocos_selecionados_tamanho * 2;
+            } else {
+                pontuacao++;
+            }
+        }
+
+        function get_pontos() {
+            return pontuacao;
+        }
+
+        // Public members
         this.BLOCO_LARGURA = 50;
         this.BLOCO_ALTURA = 50;
         this.COLUNAS_POSICAO_X = [0, 50, 100, 150];
@@ -53,6 +85,10 @@ var Game = (function () {
         this.context.font = "30pt Arial";
         this.botao_ok = document.getElementById(botao_ok_id);
         this.botao_ok.onclick = this.ao_confirmar.bind(this);
+
+        // Privileged members
+        this.pontuar = function() { pontuar(); };
+        this.get_pontos = function() { return get_pontos(); };
     }
     Game.prototype.esta_cheia_coluna = function (id) {
         if (this.colunas[id][0] == undefined || this.colunas[id].length < this.COLUNAS_TAMANHO) {
@@ -206,12 +242,13 @@ var Game = (function () {
 
                         // Se achar a palavra
                         if(lista_das_palavras[i] == palavra_a_procurar) {
+                            this.pontuar();
+                            console.log("Pontuação: " + this.get_pontos());
                             console.log("palavra: " + palavra_a_procurar);
                             this.blocos_selecionados.sort(this.maior_index);
                             console.log("Blocos reoodernados: " + this.blocos_selecionados);
                             this.remover_blocos_selecionados();
                             
-                            // TODO sistema de pontuação
                             return;
                         }
                     }
