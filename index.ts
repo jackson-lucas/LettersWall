@@ -27,11 +27,6 @@ Ideias:
     - Verificar se existe alguma pesquisa de quais consoantes e vogais mais aparecem em nosso idioma
 
 */
-//  id = window.requestAnimationFrame() e window.cancelAnimationFrame(id)
-// esta_selecionado = 0:não, 1:sim, 2:invalido
-// bloco = [letra, y, esta_selecionado]
-// Coluna = bloco[]
-// bloco_selecionado = [letra, coluna_id, posicao_id]
 
 // TODO normalizar velocidade
 // TODO Blocos responsivos
@@ -39,8 +34,45 @@ Ideias:
 // TODO Implementação do audio
 // TODO Construção do menu
 // TODO Construção do 'ajuda'
-var Game = (function () {
-    function Game(canvas_id, botao_ok_id) {
+interface Console {
+    table;
+}
+
+interface HTMLElement {
+    getContext;
+}
+declare var DICIONARIO_JSON;
+
+
+// esta_selecionado = 0:não, 1:sim, 2:invalido
+// bloco = [letra, y, esta_selecionado]
+// Coluna = bloco[]
+// bloco_selecionado = [letra, coluna_id, posicao_id]
+class Game {
+    BLOCO_LARGURA:number = 50;
+    BLOCO_ALTURA:number = 50;
+    COLUNAS_POSICAO_X:number[] = [0, 50, 100, 150];
+    LETRAS_POSICAO_X:number[] = [25, 75, 125, 175];
+    COLUNAS_POSICAO_Y_INICIAL:number = -50;
+    LETRAS_POSICAO_Y_INICIAL:number = this.COLUNAS_POSICAO_Y_INICIAL + this.BLOCO_ALTURA - 10;
+    VOGAIS:string[] = ['A', 'E', 'I', 'O', 'U'];
+    CONSOANTES:string[] = ['B', 'C', 'D', 'F', 'G', 'H', 'J', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'X', 'Z'];
+    COLUNAS_TAMANHO:number = 7;
+    QUANTIDADE_DE_COLUNAS:number = 4;
+    ALTURA_DA_TELA:number = 350;
+    DICIONARIO = JSON.parse(DICIONARIO_JSON);
+    colunas = [[], [], [], []];
+    blocos_selecionados = [];
+    velocidade:number = 10;
+    criar_vogal:boolean = false;
+    acabar_jogo:boolean = false;
+    canvas;
+    context;
+    botao_ok; 
+    pontuar; 
+    get_pontos;
+
+    constructor (canvas_id, botao_ok_id) {
         // Private members
         var that = this;
         var pontuacao = 0;
@@ -60,24 +92,6 @@ var Game = (function () {
         }
         
         // Public members
-        this.BLOCO_LARGURA = 50;
-        this.BLOCO_ALTURA = 50;
-        this.COLUNAS_POSICAO_X = [0, 50, 100, 150];
-        this.LETRAS_POSICAO_X = [25, 75, 125, 175];
-        this.COLUNAS_POSICAO_Y_INICIAL = -50;
-        this.LETRAS_POSICAO_Y_INICIAL = this.COLUNAS_POSICAO_Y_INICIAL + this.BLOCO_ALTURA - 10;
-        this.VOGAIS = ['A', 'E', 'I', 'O', 'U'];
-        this.CONSOANTES = ['B', 'C', 'D', 'F', 'G', 'H', 'J', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'X', 'Z'];
-        this.COLUNAS_TAMANHO = 7;
-        this.QUANTIDADE_DE_COLUNAS = 4;
-        this.ALTURA_DA_TELA = 350;
-        this.DICIONARIO = JSON.parse(DICIONARIO_JSON);
-        this.colunas = [[], [], [], []];
-        this.blocos_selecionados = [];
-        this.velocidade = 10;
-        this.criar_vogal = false;
-        this.acabar_jogo = false;
-
         this.canvas = document.getElementById(canvas_id);
         this.canvas.onclick = this.ao_clicar.bind(this);
         this.context = this.canvas.getContext('2d');
@@ -90,14 +104,15 @@ var Game = (function () {
         this.pontuar = function() { pontuar(); };
         this.get_pontos = function() { return get_pontos(); };
     }
-    Game.prototype.esta_cheia_coluna = function (id) {
+
+    esta_cheia_coluna(id:number) {
         if (this.colunas[id][0] == undefined || this.colunas[id].length < this.COLUNAS_TAMANHO) {
             return false;
         }
         return true;
-    };
+    }
 
-    Game.prototype.criar_novo_bloco = function () {
+    criar_novo_bloco() {
         var coluna_id = Math.floor(Math.random() * 4), letra_id, letra, quantidade_colunas_cheias = 0;
 
         while (this.esta_cheia_coluna(coluna_id)) {
@@ -136,9 +151,9 @@ var Game = (function () {
             console.log(coluna_id, [letra, this.COLUNAS_POSICAO_Y_INICIAL, 0]);
             this.colunas[coluna_id].unshift([letra, this.COLUNAS_POSICAO_Y_INICIAL, 0]);
         }
-    };
+    }
 
-    Game.prototype.proximo_frame = function () {
+    proximo_frame() {
         var i, j, bloco_posterior_posicao_y, tamanho_coluna_atual, coluna_atual;
 
         this.context.clearRect(0, 0, 200, 350);
@@ -180,32 +195,32 @@ var Game = (function () {
                 }
             }
         }
-    };
+    }
 
     // Pega posicao do mouse em relação ao canvas e não a janela.
-    Game.prototype.get_posicao_mouse = function (evt) {
+    get_posicao_mouse(evt) {
         var rect = this.canvas.getBoundingClientRect();
         return {
             x: evt.clientX - rect.left,
             y: evt.clientY - rect.top
         };
-    };
+    }
 
-    Game.prototype.remover_bloco_dos_selecionado = function (id, pos) {
+    remover_bloco_dos_selecionado(coluna_id:number, posicao_na_coluna:number) {
         var i, length = this.blocos_selecionados.length;
         for (i = 0; i < length; i++) {
-            if (this.blocos_selecionados[i][1] == id && this.blocos_selecionados[i][2] == pos) {
+            if (this.blocos_selecionados[i][1] == coluna_id && this.blocos_selecionados[i][2] == posicao_na_coluna) {
                 this.blocos_selecionados.splice(i, 1);
                 break;
             }
         }
-    };
+    }
 
-    Game.prototype.ordenacao_crescente_por_letra = function (bloco1, bloco2) {
+    ordenacao_crescente_por_letra = function (bloco1, bloco2) {
         return bloco1[0] > bloco2[0];
     };
 
-    Game.prototype.remover_blocos_selecionados = function() {
+    remover_blocos_selecionados = function() {
         var i;
         console.log("removendo:");
         for (i = this.blocos_selecionados.length - 1; i >= 0; i--) {
@@ -216,12 +231,12 @@ var Game = (function () {
         this.blocos_selecionados = [];
     };
 
-    Game.prototype.maior_index = function(bloco_selecionado1, bloco_selecionado2) {
+    maior_index = function(bloco_selecionado1, bloco_selecionado2) {
         return bloco_selecionado1[2] - bloco_selecionado2[2];
     };
 
     // bloco_selecionado = [letra, coluna_id, posicao_id]
-    Game.prototype.ao_confirmar = function () {
+    ao_confirmar = function () {
         var palavra_a_procurar = "", i, blocos_selecionados_tamanho = this.blocos_selecionados.length, lista_das_palavras, lista_das_palavras_tamanho;
 
         if(blocos_selecionados_tamanho > 0) {
@@ -264,7 +279,7 @@ var Game = (function () {
         }
     };
 
-    Game.prototype.ao_clicar = function (evt) {
+    ao_clicar = function (evt) {
         var mouse_posicao = this.get_posicao_mouse(evt), id, i;
 
         console.log(mouse_posicao.x, mouse_posicao.y);
@@ -293,15 +308,14 @@ var Game = (function () {
             }
         }
     };
-    Game.prototype.chamar_proximo_frame = function () {
+    chamar_proximo_frame = function () {
         this.proximo_frame();
 
         //if(!this.acabar_jogo) {
         requestAnimationFrame(this.chamar_proximo_frame.bind(this));
         //}
     };
-    return Game;
-})();
+}
 
 if (document.getElementById('canvasOne').getContext) {
     var game = new Game('canvasOne', 'OK');
