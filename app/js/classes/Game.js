@@ -47,9 +47,12 @@ App.Classes.Game = (function () {
         this.DICIONARIO = JSON.parse(DICIONARIO_JSON);
         this.colunas = [[], [], [], []];
         this.blocos_selecionados = [];
-        this.velocidade = 10;
+        this.velocidade = 0.5;
         this.criar_vogal = false;
         this.acabar_jogo = false;
+        this.contador_de_frames = 0;
+        this.frame = 60;
+        this.segundos_para_criar_bloco = 5;
         this.remover_blocos_selecionados = function () {
             var i;
             console.log("removendo:");
@@ -147,7 +150,15 @@ App.Classes.Game = (function () {
 
         this.context.clearRect(0, 0, 200, 350);
 
-        this.criar_novo_bloco();
+        
+        if(this.contador_de_frames === 0) {
+            this.criar_novo_bloco();
+        }
+
+        this.contador_de_frames++;
+        if (this.contador_de_frames >= (this.frame * this.segundos_para_criar_bloco) ) {
+            this.contador_de_frames = 0;
+        }
 
         for (j = 0; j < this.QUANTIDADE_DE_COLUNAS; j++) {
             coluna_atual = this.colunas[j];
@@ -285,7 +296,7 @@ App.Classes.Game = (function () {
         this.proximo_frame();
 
         //if(!this.acabar_jogo) {
-        requestAnimationFrame(this.chamar_proximo_frame.bind(this));
+        requestAnimationFrame(this.chamar_proximo_frame.bind(this));            
         //}
     };
 
