@@ -31,6 +31,9 @@ Ideias:
 // bloco = [letra, y, esta_selecionado]
 // Coluna = bloco[]
 // bloco_selecionado = [letra, coluna_id, posicao_id]
+
+// FIX encontrado novamente bug de não deletar a palavra, e quando não tinha uma continuo verde mas, não estava entre os selecionados
+// FIX encontrado bug que um quadrado passou do limite da borda por alguns pixels. Também entre os blocos
 App.Classes.Game = (function () {
     function Game(canvas_id, botao_ok_id) {
         this.BLOCO_LARGURA = 50;
@@ -62,6 +65,7 @@ App.Classes.Game = (function () {
             }
             this.blocos_selecionados = [];
         };
+
         // Private members
         var that = this;
         var pontuacao = 0;
@@ -154,7 +158,6 @@ App.Classes.Game = (function () {
         if(this.contador_de_frames === 0) {
             this.criar_novo_bloco();
         }
-
         this.contador_de_frames++;
         if (this.contador_de_frames >= (this.frame * this.segundos_para_criar_bloco) ) {
             this.contador_de_frames = 0;
@@ -198,11 +201,11 @@ App.Classes.Game = (function () {
     };
 
     // Pega posicao do mouse em relação ao canvas e não a janela.
-    Game.prototype.get_posicao_mouse = function (evt) {
+    Game.prototype.get_posicao_mouse = function (evento) {
         var rect = this.canvas.getBoundingClientRect();
         return {
-            x: evt.clientX - rect.left,
-            y: evt.clientY - rect.top
+            x: evento.clientX - rect.left,
+            y: evento.clientY - rect.top
         };
     };
 
@@ -224,6 +227,12 @@ App.Classes.Game = (function () {
         return bloco_selecionado1[2] - bloco_selecionado2[2];
     };
 
+    Game.prototype.verificar_nivel = function() {
+        var nivel = this.get_pontos() / 10;
+
+        this.velocidade = (nivel * 0.5);
+    };
+
     // bloco_selecionado = [letra, coluna_id, posicao_id]
     Game.prototype.ao_confirmar = function () {
         var palavra_a_procurar = "", i, blocos_selecionados_tamanho = this.blocos_selecionados.length, lista_das_palavras, lista_das_palavras_tamanho;
@@ -242,6 +251,7 @@ App.Classes.Game = (function () {
                     for (i = 0; i < lista_das_palavras_tamanho; i++) {
                         if (lista_das_palavras[i] == palavra_a_procurar) {
                             this.pontuar();
+                            this.verificar_nivel();
                             console.log("Pontuação: " + this.get_pontos());
                             console.log("palavra: " + palavra_a_procurar);
                             this.blocos_selecionados.sort(this.maior_index);
@@ -262,8 +272,8 @@ App.Classes.Game = (function () {
         }
     };
 
-    Game.prototype.ao_clicar = function (evt) {
-        var mouse_posicao = this.get_posicao_mouse(evt), id, i;
+    Game.prototype.ao_clicar = function (evento) {
+        var mouse_posicao = this.get_posicao_mouse(evento), id, i;
 
         console.log(mouse_posicao.x, mouse_posicao.y);
 
