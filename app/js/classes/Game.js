@@ -32,9 +32,6 @@ Ideias:
 // Coluna = bloco[]
 // bloco_selecionado = [letra, coluna_id, posicao_id]
 
-// FIXED encontrado novamente bug de não deletar a palavra, e quando não tinha uma continuo verde mas, não estava entre os selecionados
-// FIX encontrado bug que um quadrado passou do limite da borda por alguns pixels. 
-//      Também entre os blocos. É necessário q a velocidade seja compativel com os espaços dos blocos ou que seja feita uma verificação para se for maior q o limite apenas coloque o suficiente para não ultrapassar o bloco
 App.Classes.Game = (function () {
     function Game(canvas_id, botao_ok_id) {
         this.BLOCO_LARGURA = 50;
@@ -48,17 +45,17 @@ App.Classes.Game = (function () {
         this.COLUNAS_TAMANHO = 7;
         this.QUANTIDADE_DE_COLUNAS = 4;
         this.ALTURA_DA_TELA = 350;
-        this.DICIONARIO = JSON.parse(DICIONARIO_JSON);
-        this.AUMENTO_DA_VELOCIDADE = 1.5;
+        this.DICIONARIO = JSON.parse(App.JSON.DICIONARIO);
+        this.AUMENTO_DA_VELOCIDADE = 3;
         this.PONTUACAO_POR_NIVEL = 10;
         this.colunas = [[], [], [], []];
         this.blocos_selecionados = [];
-        this.velocidade = 1;
+        this.velocidade = 2;
         this.criar_vogal = false;
         this.acabar_jogo = false;
         this.contador_de_frames = 0;
         this.frame = 60;
-        this.segundos_para_criar_bloco = 5;
+        this.segundos_para_criar_bloco = 3;
 
         // Private members
         var that = this;
@@ -158,7 +155,7 @@ App.Classes.Game = (function () {
     };
 
     Game.prototype.proximo_frame = function () {
-        var i, j, bloco_posterior_posicao_y, tamanho_coluna_atual, coluna_atual;
+        var i, j, bloco_posterior_posicao_y, tamanho_coluna_atual, coluna_atual, posicao_e_tamanho_do_bloco;
 
         this.context.clearRect(0, 0, 200, 350);
 
@@ -177,16 +174,25 @@ App.Classes.Game = (function () {
             tamanho_coluna_atual = coluna_atual.length;
 
             if (tamanho_coluna_atual > 0) {
+
                 for (i = 0; i < tamanho_coluna_atual; i++) {
+
+                    posicao_e_tamanho_do_bloco = coluna_atual[i][1] + this.BLOCO_ALTURA;
+                    // Caso exista um bloco posterior
                     if (i - 1 >= 0) {
+
                         bloco_posterior_posicao_y = coluna_atual[i - 1][1];
 
-                        if ((coluna_atual[i][1] + this.BLOCO_ALTURA < this.ALTURA_DA_TELA) 
-                                && (bloco_posterior_posicao_y && (coluna_atual[i][1] + this.BLOCO_ALTURA < bloco_posterior_posicao_y))) {
+                        if (posicao_e_tamanho_do_bloco + this.velocidade < bloco_posterior_posicao_y) {
                             coluna_atual[i][1] += this.velocidade;
+                        } else if(posicao_e_tamanho_do_bloco < bloco_posterior_posicao_y) {
+                            coluna_atual[i][1] += bloco_posterior_posicao_y - posicao_e_tamanho_do_bloco;
                         }
-                    } else if (coluna_atual[i][1] + this.BLOCO_ALTURA < this.ALTURA_DA_TELA) {
+
+                    } else if (posicao_e_tamanho_do_bloco + this.velocidade < this.ALTURA_DA_TELA) {
                         coluna_atual[i][1] += this.velocidade;
+                    } else if (posicao_e_tamanho_do_bloco < this.ALTURA_DA_TELA) {
+                        coluna_atual[i][1] += this.ALTURA_DA_TELA - posicao_e_tamanho_do_bloco;
                     }
 
                     // Definição da cor do bloco
