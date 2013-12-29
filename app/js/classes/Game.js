@@ -32,8 +32,9 @@ Ideias:
 // Coluna = bloco[]
 // bloco_selecionado = [letra, coluna_id, posicao_id]
 
-// FIX encontrado novamente bug de não deletar a palavra, e quando não tinha uma continuo verde mas, não estava entre os selecionados
-// FIX encontrado bug que um quadrado passou do limite da borda por alguns pixels. Também entre os blocos
+// FIXED encontrado novamente bug de não deletar a palavra, e quando não tinha uma continuo verde mas, não estava entre os selecionados
+// FIX encontrado bug que um quadrado passou do limite da borda por alguns pixels. 
+//      Também entre os blocos. É necessário q a velocidade seja compativel com os espaços dos blocos ou que seja feita uma verificação para se for maior q o limite apenas coloque o suficiente para não ultrapassar o bloco
 App.Classes.Game = (function () {
     function Game(canvas_id, botao_ok_id) {
         this.BLOCO_LARGURA = 50;
@@ -48,23 +49,16 @@ App.Classes.Game = (function () {
         this.QUANTIDADE_DE_COLUNAS = 4;
         this.ALTURA_DA_TELA = 350;
         this.DICIONARIO = JSON.parse(DICIONARIO_JSON);
+        this.AUMENTO_DA_VELOCIDADE = 1.5;
+        this.PONTUACAO_POR_NIVEL = 10;
         this.colunas = [[], [], [], []];
         this.blocos_selecionados = [];
-        this.velocidade = 0.5;
+        this.velocidade = 1;
         this.criar_vogal = false;
         this.acabar_jogo = false;
         this.contador_de_frames = 0;
         this.frame = 60;
         this.segundos_para_criar_bloco = 5;
-        this.remover_blocos_selecionados = function () {
-            var i;
-            console.log("removendo:");
-            for (i = this.blocos_selecionados.length - 1; i >= 0; i--) {
-                console.log("Letra: " + this.colunas[this.blocos_selecionados[i][1]][this.blocos_selecionados[i][2]] + " Coluna: " + this.blocos_selecionados[i][1] + " Posição: " + this.blocos_selecionados[i][2]);
-                this.colunas[this.blocos_selecionados[i][1]].splice(this.blocos_selecionados[i][2], 1);
-            }
-            this.blocos_selecionados = [];
-        };
 
         // Private members
         var that = this;
@@ -101,6 +95,19 @@ App.Classes.Game = (function () {
             return get_pontos();
         };
     }
+
+    Game.prototype.remover_blocos_selecionados = function () {
+        var i;
+        console.log("removendo:");
+        for (i = this.blocos_selecionados.length - 1; i >= 0; i--) {
+            console.log("Coluna da remocao: " + this.colunas[this.blocos_selecionados[i][1]]);
+            console.log("Letra: " + this.colunas[this.blocos_selecionados[i][1]][this.blocos_selecionados[i][2]] + " Coluna: " + this.blocos_selecionados[i][1] + " Posição: " + this.blocos_selecionados[i][2]);
+            this.colunas[this.blocos_selecionados[i][1]].splice(this.blocos_selecionados[i][2], 1);
+            console.log("Coluna depois da remocao: " + this.colunas[this.blocos_selecionados[i][1]]);
+        }
+        this.blocos_selecionados = [];
+    };
+
     Game.prototype.esta_cheia_coluna = function (id) {
         if (this.colunas[id][0] == undefined || this.colunas[id].length < this.COLUNAS_TAMANHO) {
             return false;
@@ -145,7 +152,8 @@ App.Classes.Game = (function () {
 
             // Adicionando na coluna
             console.log(coluna_id, [letra, this.COLUNAS_POSICAO_Y_INICIAL, 0]);
-            this.colunas[coluna_id].unshift([letra, this.COLUNAS_POSICAO_Y_INICIAL, 0]);
+            console.table(this.blocos_selecionados);
+            this.colunas[coluna_id].push([letra, this.COLUNAS_POSICAO_Y_INICIAL, 0]);
         }
     };
 
@@ -163,22 +171,25 @@ App.Classes.Game = (function () {
             this.contador_de_frames = 0;
         }
 
+        // Gerador gráfico
         for (j = 0; j < this.QUANTIDADE_DE_COLUNAS; j++) {
             coluna_atual = this.colunas[j];
             tamanho_coluna_atual = coluna_atual.length;
 
             if (tamanho_coluna_atual > 0) {
-                for (i = tamanho_coluna_atual - 1; i >= 0; i--) {
-                    if (i + 1 < tamanho_coluna_atual) {
-                        bloco_posterior_posicao_y = coluna_atual[i + 1][1];
+                for (i = 0; i < tamanho_coluna_atual; i++) {
+                    if (i - 1 >= 0) {
+                        bloco_posterior_posicao_y = coluna_atual[i - 1][1];
 
-                        if ((coluna_atual[i][1] + this.BLOCO_ALTURA < this.ALTURA_DA_TELA) && (bloco_posterior_posicao_y && (coluna_atual[i][1] + this.BLOCO_ALTURA < bloco_posterior_posicao_y))) {
+                        if ((coluna_atual[i][1] + this.BLOCO_ALTURA < this.ALTURA_DA_TELA) 
+                                && (bloco_posterior_posicao_y && (coluna_atual[i][1] + this.BLOCO_ALTURA < bloco_posterior_posicao_y))) {
                             coluna_atual[i][1] += this.velocidade;
                         }
                     } else if (coluna_atual[i][1] + this.BLOCO_ALTURA < this.ALTURA_DA_TELA) {
                         coluna_atual[i][1] += this.velocidade;
                     }
 
+                    // Definição da cor do bloco
                     if (this.colunas[j][i][2]) {
                         if (this.colunas[j][i][2] == 1) {
                             // Letra selecionada
@@ -193,6 +204,7 @@ App.Classes.Game = (function () {
                         this.context.fillStyle = "black";
                     }
 
+                    // Geração do bloco + letra
                     this.context.strokeRect(this.COLUNAS_POSICAO_X[j], this.colunas[j][i][1], this.BLOCO_LARGURA, this.BLOCO_ALTURA);
                     this.context.fillText(this.colunas[j][i][0], this.LETRAS_POSICAO_X[j], this.colunas[j][i][1] + this.BLOCO_ALTURA - 10);
                 }
@@ -228,9 +240,10 @@ App.Classes.Game = (function () {
     };
 
     Game.prototype.verificar_nivel = function() {
-        var nivel = this.get_pontos() / 10;
+        var nivel = Math.floor(this.get_pontos() / this.PONTUACAO_POR_NIVEL);
 
-        this.velocidade = (nivel * 0.5);
+        this.velocidade = (nivel * this.AUMENTO_DA_VELOCIDADE) || this.velocidade;
+        console.log("velocidade atual: " + this.velocidade);
     };
 
     // bloco_selecionado = [letra, coluna_id, posicao_id]
@@ -287,7 +300,7 @@ App.Classes.Game = (function () {
             id = 3;
         }
 
-        for (i = this.colunas[id].length - 1; i >= 0; i--) {
+        for (i = 0; i < this.colunas[id].length; i++) {
             if (mouse_posicao.y >= this.colunas[id][i][1]) {
                 if (this.colunas[id][i][2] === 0) {
                     this.colunas[id][i][2] = 1;
