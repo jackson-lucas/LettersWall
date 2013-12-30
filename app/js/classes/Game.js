@@ -25,6 +25,7 @@ Touch events
 Ideias:
 - Pode ter um botao para remover uma linha, caso tenha essa opção
 - Verificar se existe alguma pesquisa de quais consoantes e vogais mais aparecem em nosso idioma
+- Implementar history API
 
 */
 // esta_selecionado = 0:não, 1:sim, 2:invalido
@@ -32,6 +33,12 @@ Ideias:
 // Coluna = bloco[]
 // bloco_selecionado = [letra, coluna_id, posicao_id]
 
+// TODO Criar interface do jogo
+// TODO Criar instruções, sobre e opções
+
+// TODO carregamento do audio(jogo)
+// TODO colocar audio compativel com o jogo
+// TODO ao_silenciar() - silenciar todos os sons do jogo
 App.Classes.Game = (function () {
     function Game(canvas_id, botao_ok_id) {
         this.BLOCO_LARGURA = 50;
@@ -269,6 +276,7 @@ App.Classes.Game = (function () {
                     lista_das_palavras_tamanho = lista_das_palavras.length;
                     for (i = 0; i < lista_das_palavras_tamanho; i++) {
                         if (lista_das_palavras[i] == palavra_a_procurar) {
+                            // TODO ativar audio de 'palavra certa'
                             this.pontuar();
                             this.verificar_nivel();
                             console.log("Pontuação: " + this.get_pontos());
@@ -287,6 +295,7 @@ App.Classes.Game = (function () {
                 this.colunas[this.blocos_selecionados[i][1]][this.blocos_selecionados[i][2]][2] = 2;
             }
             this.blocos_selecionados = [];
+            // TODO ativar audio de 'palavra errada'
             console.log("não existe");
         }
     };
