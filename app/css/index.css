@@ -1,0 +1,202 @@
+/* Buttons on this page was generated using CSSButtonGenerator.com */
+
+canvas {
+    border: solid black;
+}
+
+legend {
+    text-align:left;
+    margin-left: 5%;
+}
+
+.normal-button {
+    border-top-left-radius:20px;
+    border-top-right-radius:20px;
+    border-bottom-right-radius:20px;
+    border-bottom-left-radius:20px;
+    text-indent:0;
+    border:1px solid;
+    display:inline-block;
+    font-family:Arial;
+    font-size:15px;
+    font-weight:bold;
+    font-style:normal;
+    height:65px;
+    line-height:65px;
+    width:131px;
+    text-decoration:none;
+    text-align:center;
+    margin: 1%;
+}
+
+button:active {
+    position:relative;
+    top: 1px;
+}
+
+.container {
+    -webkit-perspective: 800;
+    -ms-perspective: 800;
+    perspective: 800;
+    position: relative;
+    height: 500px;
+    margin: 5%;
+}
+
+.card.flipped {
+    -webkit-transform: rotatey(-180deg);
+    -ms-transform: rotatey(-180deg);
+    transform: rotatey(-180deg);
+}
+.card {
+    width: 100%;
+    height: 100%;
+    -webkit-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    border: solid black;
+}
+
+.card .face {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    -webkit-backface-visibility: hidden ;
+    -ms-backface-visibility: hidden ;
+    backface-visibility: hidden ;
+    z-index: 2;
+}
+
+.card .front {
+    position: absolute;
+    z-index: 1;
+}
+
+.card .back {
+    -webkit-transform: rotatey(-180deg);
+    -ms-transform: rotatey(-180deg);
+    transform: rotatey(-180deg);
+}
+
+#main {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 1;
+    background-color: #cacae5;
+}
+
+#jogar {
+    -webkit-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+    box-shadow:inset 0px 1px 0px 0px #bbdaf7;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #79bbff), color-stop(1, #378de5) );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#79bbff', endColorstr='#378de5');
+    background-color:#79bbff;
+    border-color:1px #84bbf3;
+    color:#ffffff;
+    text-shadow:1px 1px 0px #528ecc; 
+}
+
+#jogar:hover {
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #378de5), color-stop(1, #79bbff) );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#378de5', endColorstr='#79bbff');
+    background-color:#378de5;
+}
+
+.tab-page {
+    display: none;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 2;
+}
+
+#instructions {
+    background-color: gray;
+}
+
+#about {
+    background-color: green;
+}
+
+#about p {
+    text-align: center;
+}
+
+#options {
+    background-color: brown;
+}
+
+#options {
+    text-align: center;
+}
+
+#options-form {
+    margin-top: 5%;
+}
+
+#options-form li {
+    background-color: #d9cfcf;
+    opacity: 0.9;
+    margin: 5px;
+    border: solid black;
+    border-radius: 5px;
+    padding-left: 15px;
+    padding-top: 5px;
+    text-align: center;
+}
+
+#options-form li p {
+    display: inline-block;
+    margin-left: 5px;
+}
+
+#submit {
+    -webkit-box-shadow:inset 0px 1px 0px 0px #c1ed9c;
+    box-shadow:inset 0px 1px 0px 0px #c1ed9c;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #9dce2c), color-stop(1, #8cb82b) );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#9dce2c', endColorstr='#8cb82b');
+    background-color:#9dce2c;
+    border:1px solid #83c41a;
+    color:#ffffff;
+    text-shadow:1px 1px 0px #689324;
+}
+
+#submit:hover {
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #8cb82b), color-stop(1, #9dce2c) );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#8cb82b', endColorstr='#9dce2c');
+    background-color:#8cb82b;
+}
+
+nav {
+    float: right;
+}
+
+.slide {
+    display: inline-block;
+    margin-right: 5px;
+    background-color: #cc0000;
+    border-style: solid;
+    border-color: black;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+    border-top-style: none;
+}
+
+.slide > img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 15px;
+}
+
+.slide:hover {
+    -webkit-box-shadow: 0 0 8px #5c5012;
+    box-shadow: 0 0 8px #5c5012;
+}
+
+.slide:active {
+    background-color: #12c912;
+}

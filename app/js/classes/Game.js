@@ -34,7 +34,7 @@ Ideias:
 // bloco_selecionado = [letra, coluna_id, posicao_id]
 
 App.Classes.Game = (function () {
-    function Game(canvas_id, botao_ok_id) {
+    function Game(canvas_id, botao_confirmar_id) {
         this.BLOCO_LARGURA = 50;
         this.BLOCO_ALTURA = 50;
         this.COLUNAS_POSICAO_X = [0, 50, 100, 150];
@@ -82,8 +82,8 @@ App.Classes.Game = (function () {
         this.context = this.canvas.getContext('2d');
         this.context.textAlign = "center";
         this.context.font = "30pt Arial";
-        this.botao_ok = document.getElementById(botao_ok_id);
-        this.botao_ok.onclick = this.ao_confirmar.bind(this);
+        this.botao_confirmar = document.getElementById(botao_confirmar_id);
+        this.botao_confirmar.onclick = this.ao_confirmar.bind(this);
 
         // Privileged members
         this.pontuar = function () {

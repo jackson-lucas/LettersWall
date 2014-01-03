@@ -9,17 +9,73 @@
     <link rel="stylesheet" href="app/css/index.css">
 </head>
 <body>
-    <progress value="70" max="100"></progress>
+    <div class="container">
+        <div class="card">
+            <div class="face front">
+                <div id="instructions" class="tab-page">
+                    <nav>
+                        <div class="slide" data-value="1"><img src="app/assets/images/iconmonstr-undo-4-icon-32.png"></div>
+                    </nav>
+                    Você deve fazer...
+                </div>
+                <div id="about" class="tab-page">
+                    <nav>
+                        <div class="slide" data-value="2"><img src="app/assets/images/iconmonstr-undo-4-icon-32.png"></div>
+                    </nav>
+                    <p>Feito por Jackson Lucas</p>
+                    <p>Email: jackson.lsl87@gmail.com</p>
+                </div>
+                <div id="options" class="tab-page">
+                    <nav>
+                        <div class="slide" data-value="3"><img src="app/assets/images/iconmonstr-undo-4-icon-32.png"></div>
+                    </nav>
+                    <form id="options-form">
+                        <fieldset>
+                            <legend>Volume</legend>
+                            
+                            <ul type="none">
+                                <li>
+                                    <label>Som Ambiente:</label><p id="som-ambiente-volume">50</p><br>
+                                    <input class="input-type-range" data-value="1" type="range" min="0" max="100" step="1">
+                                </li>
+                                <li>
+                                    <label>Efeitos Sonoros:</label><p id="efeitos-sonoros-volume">50</p><br>
+                                    <input class="input-type-range" data-value="2" type="range" min="0" max="100" step="1">
+                                </li>
+                            </ul>
+                            
+                        </fieldset>
+                        <button id="submit" class="normal-button" type="submit">Alterar</button>
+                    </form>
+                </div>
+                <div id="main">
+                    <nav>
+                        <div class="slide" data-value="1"><img src="app/assets/images/iconmonstr-help-3-icon-32.png"></div>
+                        <div class="slide" data-value="3"><img src="app/assets/images/iconmonstr-gear-icon-32.png"></div>
+                        <div class="slide" data-value="2"><img src="app/assets/images/iconmonstr-info-2-icon-32.png"></div>
+                    </nav>
+                    <div class="main"></div>
+                    <button id="jogar" class="normal-button">Jogar</button>
+                </div>
+            </div>
+            <div class="face back">
+                <canvas id="canvasOne" width="200" height="350">
+                    Your browser does not support HTML5 Canvas.
+                </canvas>
+                <button id="confirm_button">OK</button>
+            </div>
+        </div>
+    </div>
 
-    <canvas id="canvasOne" width="200" height="350">
-        Your browser does not support HTML5 Canvas.
-    </canvas>
-    <button id="OK">OK</button>
     <audio preload="auto" src="app/assets/sounds/MattOglseby - 8.ogg"></audio>
-    <!--<script src="jquery2.0.3.min.js"></script>-->
+    
+    <script src="app/js/libraries/jquery2.0.3.min.js"></script>
     <script src="app/js/App.js"></script>
     <script src="app/assets/data/dicionario.js"></script>
     <script src="app/js/classes/Game.js"></script>
+    <script src="app/js/handlers/input_handler.js"></script>
+    <script src="app/js/handlers/slide_handler.js"></script>
+    <script src="app/js/handlers/button_handler.js"></script>
     <script src="main.js"></script>
 </body>
 </html>
