@@ -33,12 +33,6 @@ Ideias:
 // Coluna = bloco[]
 // bloco_selecionado = [letra, coluna_id, posicao_id]
 
-// TODO Criar interface do jogo
-// TODO Criar instruções, sobre e opções
-
-// TODO carregamento do audio(jogo)
-// TODO colocar audio compativel com o jogo
-// TODO ao_silenciar() - silenciar todos os sons do jogo
 App.Classes.Game = (function () {
     function Game(canvas_id, botao_ok_id) {
         this.BLOCO_LARGURA = 50;

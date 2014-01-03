@@ -1,0 +1,8 @@
+Letter Wall Project:
+  ☐ Criar instruções, sobre e opções
+  ☐ Criar interface do jogo
+  ☐ Colocar audio compativel com o jogo
+  ☐ ao_silenciar() - silenciar todos os sons do jogo #Game.js
+  ☐ Carregamento do audio(jogo)
+  ☐ ativar audio de 'palavra errada'
+  ☐ ativar audio de 'palavra certa'
