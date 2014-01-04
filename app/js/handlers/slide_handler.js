@@ -8,6 +8,7 @@ App.Handlers.slide_click = $('.slide').click(function(){
             break;
         case 3:
             $('#options').slideToggle('slow');
+            $("#confirmation-alert").hide('slow');
     }
     
 });
