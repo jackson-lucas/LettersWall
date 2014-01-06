@@ -7,63 +7,95 @@
     <title>Canvas Example</title>
 
     <link rel="stylesheet" href="app/css/index.css">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 </head>
 <body>
     <div class="container">
         <div class="card">
             <div class="face front">
                 <div id="instructions" class="tab-page">
-                    <nav>
-                        <div class="slide" data-value="1"><img src="app/assets/images/iconmonstr-undo-4-icon-32.png"></div>
-                    </nav>
-                    Você deve fazer...
+                    <div>
+                        <h3>Ajuda</h3>
+                        <nav>
+                            <div class="slide" data-value="1"><img src="app/assets/images/iconmonstr-undo-4-icon-32.png"></div>
+                        </nav>
+                    </div>
+                    <div>
+                        Você deve fazer...
+                    </div>
                 </div>
                 <div id="about" class="tab-page">
-                    <nav>
-                        <div class="slide" data-value="2"><img src="app/assets/images/iconmonstr-undo-4-icon-32.png"></div>
-                    </nav>
-                    <p>Feito por Jackson Lucas</p>
-                    <p>Email: jackson.lsl87@gmail.com</p>
+                    <div>
+                        <h3>Sobre</h3>
+                        <nav>
+                            <div class="slide" data-value="2"><img src="app/assets/images/iconmonstr-undo-4-icon-32.png"></div>
+                        </nav>
+                    </div>
+                    <div>
+                        <p>Feito por Jackson Lucas</p>
+                        <p>Email: jackson.lsl87@gmail.com</p>
+                    </div>
                 </div>
                 <div id="options" class="tab-page">
-                    <nav>
-                        <div class="slide" data-value="3"><img src="app/assets/images/iconmonstr-undo-4-icon-32.png"></div>
-                    </nav>
-                    <form id="options-form">
-                        <fieldset>
-                            <legend>Volume</legend>
-                            
-                            <ul type="none">
-                                <li>
-                                    <label>Som Ambiente:</label><p id="som-ambiente-volume">50</p><br>
-                                    <input class="input-type-range" data-value="1" type="range" min="0" max="100" step="1">
-                                </li>
-                                <li>
-                                    <label>Efeitos Sonoros:</label><p id="efeitos-sonoros-volume">50</p><br>
-                                    <input class="input-type-range" data-value="2" type="range" min="0" max="100" step="1">
-                                </li>
-                            </ul>
-                            
-                        </fieldset>
-                        <image id="confirmation-alert" src="app/assets/images/iconmonstr-check-mark-icon-32.png">
-                        <button id="submit" class="normal-button" type="button">Alterar</button>
-                    </form>
+                    <div>
+                        <h3>Opções</h3>
+                        <nav>
+                            <div class="slide" data-value="3"><img src="app/assets/images/iconmonstr-undo-4-icon-32.png"></div>
+                        </nav>
+                    </div>
+                    <div>
+                        <form id="options-form">
+                            <fieldset>
+                                <legend>Volume</legend>
+                                
+                                <ul type="none">
+                                    <li>
+                                        <label>Som Ambiente:</label><p id="som-ambiente-volume">50</p><br>
+                                        <input class="input-type-range" data-value="1" type="range" min="0" max="100" step="1">
+                                    </li>
+                                    <li>
+                                        <label>Efeitos Sonoros:</label><p id="efeitos-sonoros-volume">50</p><br>
+                                        <input class="input-type-range" data-value="2" type="range" min="0" max="100" step="1">
+                                    </li>
+                                </ul>
+                                
+                            </fieldset>
+                            <image id="confirmation-alert" src="app/assets/images/iconmonstr-check-mark-icon-32.png">
+                            <button id="submit" class="normal-button" type="button">Alterar</button>
+                        </form>
+                    </div>
                 </div>
                 <div id="main">
-                    <nav>
-                        <div class="slide" data-value="1"><img src="app/assets/images/iconmonstr-help-3-icon-32.png"></div>
-                        <div class="slide" data-value="3"><img src="app/assets/images/iconmonstr-gear-icon-32.png"></div>
-                        <div class="slide" data-value="2"><img src="app/assets/images/iconmonstr-info-2-icon-32.png"></div>
-                    </nav>
-                    <div class="main"></div>
-                    <button id="jogar" class="normal-button">Jogar</button>
+                    <div>
+                        <h3>Muro de Letras</h3>
+                        <nav>
+                            <div class="slide" data-value="1"><img src="app/assets/images/iconmonstr-help-3-icon-32.png"></div>
+                            <div class="slide" data-value="3"><img src="app/assets/images/iconmonstr-gear-icon-32.png"></div>
+                            <div class="slide" data-value="2"><img src="app/assets/images/iconmonstr-info-2-icon-32.png"></div>
+                        </nav>
+                    </div>
+                    <div>
+                        <button id="jogar" class="normal-button">Jogar</button>
+                    </div>
                 </div>
             </div>
             <div class="face back">
-                <canvas id="canvasOne" width="200" height="350">
-                    Your browser does not support HTML5 Canvas.
-                </canvas>
-                <button id="confirm_button">OK</button>
+                <div>
+                    <div id="placar">Pontos: <p id="pontos">0</p></div>
+                    <nav>
+                        <div class="slide" data-value="3"><img src="app/assets/images/iconmonstr-gear-icon-32.png"></div>
+                        <div class="slide" data-value="4"><img src="app/assets/images/pause-3-icon-32.png"></div>
+                    </nav>
+                </div>
+                <div class="tela-do-jogo">
+                    <canvas id="canvasOne" width="200" height="350">
+                        Your browser does not support HTML5 Canvas.
+                    </canvas>
+                </div>
+                <div class="tela-do-jogo">
+                    
+                    <button id="confirm_button">OK</button>
+                </div>
             </div>
         </div>
     </div>

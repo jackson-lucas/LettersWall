@@ -1,4 +1,18 @@
-/* Buttons on this page was generated using CSSButtonGenerator.com */
+body {
+    background-color: #E7EBF2;
+}
+
+body > * {
+    font-family: 'Open Sans', sans-serif;
+}
+
+nav {
+    float: right;
+}
+
+h3 {
+    font-size: 1.250em;
+}
 
 canvas {
     border: solid black;
@@ -9,29 +23,27 @@ legend {
     margin-left: 5%;
 }
 
-.normal-button {
-    border-top-left-radius:20px;
-    border-top-right-radius:20px;
-    border-bottom-right-radius:20px;
-    border-bottom-left-radius:20px;
+button {
+    background-color: #04f517;
+    border-style: solid;
+    border-color: black;
+    border-radius: 1em;
     text-indent:0;
-    border:1px solid;
     display:inline-block;
-    font-family:Arial;
     font-size:15px;
     font-weight:bold;
     font-style:normal;
     height:65px;
     line-height:65px;
     width:131px;
-    text-decoration:none;
+    
     text-align:center;
     margin: 1%;
 }
 
-button:active {
-    position:relative;
-    top: 1px;
+button:hover {
+    -webkit-box-shadow: 0 0 8px #5c5012;
+    box-shadow: 0 0 8px #5c5012;
 }
 
 .container {
@@ -80,29 +92,16 @@ button:active {
     transform: rotatey(-180deg);
 }
 
+#instructions, #about, #options, .back {
+    background-color: #FFFFFF;
+}
+
 #main {
+    background-color: #FFFFFF;
     height: 100%;
     width: 100%;
     position: absolute;
     z-index: 1;
-    background-color: #cacae5;
-}
-
-#jogar {
-    -webkit-box-shadow:inset 0px 1px 0px 0px #bbdaf7;
-    box-shadow:inset 0px 1px 0px 0px #bbdaf7;
-    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #79bbff), color-stop(1, #378de5) );
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#79bbff', endColorstr='#378de5');
-    background-color:#79bbff;
-    border-color:1px #84bbf3;
-    color:#ffffff;
-    text-shadow:1px 1px 0px #528ecc; 
-}
-
-#jogar:hover {
-    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #378de5), color-stop(1, #79bbff) );
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#378de5', endColorstr='#79bbff');
-    background-color:#378de5;
 }
 
 .tab-page {
@@ -113,20 +112,19 @@ button:active {
     z-index: 2;
 }
 
-#instructions {
-    background-color: gray;
+.back > div:first-child, #main > div:first-child, #instructions > div:first-child, #options > div:first-child, #about > div:first-child {
+    background-color: #F1F1F1;
+    padding-bottom: 1%;
+    border-bottom: solid #E8E8E8;
+    text-align: center;
 }
 
-#about {
-    background-color: green;
+.back > div:first-child > *, #main > div:first-child > *, #instructions > div:first-child > *, #options > div:first-child > *, #about > div:first-child > * {
+    display: inline-block;
 }
 
 #about p {
     text-align: center;
-}
-
-#options {
-    background-color: brown;
 }
 
 #options {
@@ -138,7 +136,7 @@ button:active {
 }
 
 #options-form li {
-    background-color: #d9cfcf;
+    background-color: #c9d0c9;
     opacity: 0.9;
     margin: 5px;
     border: solid black;
@@ -157,31 +155,10 @@ button:active {
     display: none;
 }
 
-#submit {
-    -webkit-box-shadow:inset 0px 1px 0px 0px #c1ed9c;
-    box-shadow:inset 0px 1px 0px 0px #c1ed9c;
-    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #9dce2c), color-stop(1, #8cb82b) );
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#9dce2c', endColorstr='#8cb82b');
-    background-color:#9dce2c;
-    border:1px solid #83c41a;
-    color:#ffffff;
-    text-shadow:1px 1px 0px #689324;
-}
-
-#submit:hover {
-    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #8cb82b), color-stop(1, #9dce2c) );
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#8cb82b', endColorstr='#9dce2c');
-    background-color:#8cb82b;
-}
-
-nav {
-    float: right;
-}
-
 .slide {
     display: inline-block;
     margin-right: 5px;
-    background-color: #cc0000;
+    background-color: #FF7F00;
     border-style: solid;
     border-color: black;
     border-bottom-left-radius: 1em;
@@ -203,4 +180,20 @@ nav {
 
 .slide:active {
     background-color: #12c912;
+}
+
+.tela-do-jogo {
+    display: inline-block;
+}
+
+.back > div > * {
+    display: block;
+}
+
+#placar {
+    font-size: 1.25em;
+}
+
+#placar > *{
+    display: inline-block;
 }

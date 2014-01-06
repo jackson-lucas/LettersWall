@@ -1,12 +1,13 @@
 Letter Wall Project:
 ☐ Criar instruções, info e opções
-☐ Criar interface do jogo
+✔ Criar interface do jogo @done (14-01-05 23:15)
   ✔ Criar tela para ajuda, menu, info, opções @done (14-01-03 18:11)
-  ☐ Criar botões do jogo
-  ☐ Criar tela de placar
+  ✔ Criar botões do jogo @done (14-01-05 23:15)
+  ✔ Criar tela de placar @done (14-01-05 23:15)
 ☐ Colocar audio compativel com o jogo
 ☐ ao_silenciar() - silenciar todos os sons do jogo #Game.js
 ☐ Carregamento do audio(jogo)
 ☐ ativar audio de 'palavra errada'
 ☐ ativar audio de 'palavra certa'
 ☐ Alterar audio se ouver mudanças nas configurações
+☐  Regular velocidade para até 9 pixels e a partir diminuir tempo de respawn
