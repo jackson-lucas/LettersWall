@@ -155,7 +155,7 @@ button:hover {
     display: none;
 }
 
-.slide {
+.nav-button {
     display: inline-block;
     margin-right: 0.313em;
     background-color: #FF7F00;
@@ -166,19 +166,19 @@ button:hover {
     border-top-style: none;
 }
 
-.slide > img {
+.nav-button > img {
     display: block;
     margin-left: auto;
     margin-right: auto;
     padding: 0.938em;
 }
 
-.slide:hover {
+.nav-button:hover {
     -webkit-box-shadow: 0 0 0.5em #5c5012;
     box-shadow: 0 0 0.5em #5c5012;
 }
 
-.slide:active {
+.nav-button:active {
     background-color: #12c912;
 }
 

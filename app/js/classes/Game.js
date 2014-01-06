@@ -57,6 +57,7 @@ App.Classes.Game = (function () {
         this.contador_de_frames = 0;
         this.frame = 60;
         this.segundos_para_criar_bloco = 3;
+        this.pausar_jogo = false;
 
         // Private members
         var that = this;
@@ -158,62 +159,63 @@ App.Classes.Game = (function () {
     Game.prototype.proximo_frame = function () {
         var i, j, bloco_posterior_posicao_y, tamanho_coluna_atual, coluna_atual, posicao_e_tamanho_do_bloco;
 
-        this.context.clearRect(0, 0, 200, 350);
+        if (!this.pausar_jogo) {       
+            this.context.clearRect(0, 0, 200, 350);
+            
+            if(this.contador_de_frames === 0) {
+                this.criar_novo_bloco();
+            }
+            this.contador_de_frames++;
+            if (this.contador_de_frames >= (this.frame * this.segundos_para_criar_bloco) ) {
+                this.contador_de_frames = 0;
+            }
 
-        
-        if(this.contador_de_frames === 0) {
-            this.criar_novo_bloco();
-        }
-        this.contador_de_frames++;
-        if (this.contador_de_frames >= (this.frame * this.segundos_para_criar_bloco) ) {
-            this.contador_de_frames = 0;
-        }
+            // Gerador gráfico
+            for (j = 0; j < this.QUANTIDADE_DE_COLUNAS; j++) {
+                coluna_atual = this.colunas[j];
+                tamanho_coluna_atual = coluna_atual.length;
 
-        // Gerador gráfico
-        for (j = 0; j < this.QUANTIDADE_DE_COLUNAS; j++) {
-            coluna_atual = this.colunas[j];
-            tamanho_coluna_atual = coluna_atual.length;
+                if (tamanho_coluna_atual > 0) {
 
-            if (tamanho_coluna_atual > 0) {
+                    for (i = 0; i < tamanho_coluna_atual; i++) {
 
-                for (i = 0; i < tamanho_coluna_atual; i++) {
+                        posicao_e_tamanho_do_bloco = coluna_atual[i][1] + this.BLOCO_ALTURA;
+                        // Caso exista um bloco posterior
+                        if (i - 1 >= 0) {
 
-                    posicao_e_tamanho_do_bloco = coluna_atual[i][1] + this.BLOCO_ALTURA;
-                    // Caso exista um bloco posterior
-                    if (i - 1 >= 0) {
+                            bloco_posterior_posicao_y = coluna_atual[i - 1][1];
 
-                        bloco_posterior_posicao_y = coluna_atual[i - 1][1];
+                            if (posicao_e_tamanho_do_bloco + this.velocidade < bloco_posterior_posicao_y) {
+                                coluna_atual[i][1] += this.velocidade;
+                            } else if(posicao_e_tamanho_do_bloco < bloco_posterior_posicao_y) {
+                                coluna_atual[i][1] += bloco_posterior_posicao_y - posicao_e_tamanho_do_bloco;
+                            }
 
-                        if (posicao_e_tamanho_do_bloco + this.velocidade < bloco_posterior_posicao_y) {
+                        } else if (posicao_e_tamanho_do_bloco + this.velocidade < this.ALTURA_DA_TELA) {
                             coluna_atual[i][1] += this.velocidade;
-                        } else if(posicao_e_tamanho_do_bloco < bloco_posterior_posicao_y) {
-                            coluna_atual[i][1] += bloco_posterior_posicao_y - posicao_e_tamanho_do_bloco;
+                        } else if (posicao_e_tamanho_do_bloco < this.ALTURA_DA_TELA) {
+                            coluna_atual[i][1] += this.ALTURA_DA_TELA - posicao_e_tamanho_do_bloco;
                         }
 
-                    } else if (posicao_e_tamanho_do_bloco + this.velocidade < this.ALTURA_DA_TELA) {
-                        coluna_atual[i][1] += this.velocidade;
-                    } else if (posicao_e_tamanho_do_bloco < this.ALTURA_DA_TELA) {
-                        coluna_atual[i][1] += this.ALTURA_DA_TELA - posicao_e_tamanho_do_bloco;
-                    }
+                        // Definição da cor do bloco
+                        if (this.colunas[j][i][2]) {
+                            if (this.colunas[j][i][2] == 1) {
+                                // Letra selecionada
+                                this.context.fillStyle = "#3ADF00";
+                            } else {
+                                // Letra invalidada na formação da palavra
+                                this.colunas[j][i][2] = 0;
+                                this.context.fillStyle = "#FF0000";
+                            }
 
-                    // Definição da cor do bloco
-                    if (this.colunas[j][i][2]) {
-                        if (this.colunas[j][i][2] == 1) {
-                            // Letra selecionada
-                            this.context.fillStyle = "#3ADF00";
-                        } else {
-                            // Letra invalidada na formação da palavra
-                            this.colunas[j][i][2] = 0;
-                            this.context.fillStyle = "#FF0000";
+                            this.context.fillRect(this.COLUNAS_POSICAO_X[j], this.colunas[j][i][1], this.BLOCO_LARGURA, this.BLOCO_ALTURA);
+                            this.context.fillStyle = "black";
                         }
 
-                        this.context.fillRect(this.COLUNAS_POSICAO_X[j], this.colunas[j][i][1], this.BLOCO_LARGURA, this.BLOCO_ALTURA);
-                        this.context.fillStyle = "black";
+                        // Geração do bloco + letra
+                        this.context.strokeRect(this.COLUNAS_POSICAO_X[j], this.colunas[j][i][1], this.BLOCO_LARGURA, this.BLOCO_ALTURA);
+                        this.context.fillText(this.colunas[j][i][0], this.LETRAS_POSICAO_X[j], this.colunas[j][i][1] + this.BLOCO_ALTURA - 10);
                     }
-
-                    // Geração do bloco + letra
-                    this.context.strokeRect(this.COLUNAS_POSICAO_X[j], this.colunas[j][i][1], this.BLOCO_LARGURA, this.BLOCO_ALTURA);
-                    this.context.fillText(this.colunas[j][i][0], this.LETRAS_POSICAO_X[j], this.colunas[j][i][1] + this.BLOCO_ALTURA - 10);
                 }
             }
         }
@@ -327,9 +329,9 @@ App.Classes.Game = (function () {
     Game.prototype.chamar_proximo_frame = function () {
         this.proximo_frame();
 
-        //if(!this.acabar_jogo) {
-        requestAnimationFrame(this.chamar_proximo_frame.bind(this));            
-        //}
+        if(!this.acabar_jogo) {
+            requestAnimationFrame(this.chamar_proximo_frame.bind(this));            
+        }
     };
 
     return Game;
