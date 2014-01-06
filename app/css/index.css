@@ -30,20 +30,20 @@ button {
     border-radius: 1em;
     text-indent:0;
     display:inline-block;
-    font-size:15px;
+    font-size:0.938em;
     font-weight:bold;
     font-style:normal;
-    height:65px;
-    line-height:65px;
-    width:131px;
+    height:4.063em;
+    line-height:4.063em;
+    width:8.188em;
     
     text-align:center;
     margin: 1%;
 }
 
 button:hover {
-    -webkit-box-shadow: 0 0 8px #5c5012;
-    box-shadow: 0 0 8px #5c5012;
+    -webkit-box-shadow: 0 0 0.5em #5c5012;
+    box-shadow: 0 0 0.5em #5c5012;
 }
 
 .container {
@@ -51,7 +51,7 @@ button:hover {
     -ms-perspective: 800;
     perspective: 800;
     position: relative;
-    height: 500px;
+    height: 31.250em;
     margin: 5%;
 }
 
@@ -138,17 +138,17 @@ button:hover {
 #options-form li {
     background-color: #c9d0c9;
     opacity: 0.9;
-    margin: 5px;
+    margin: 0.313em;
     border: solid black;
-    border-radius: 5px;
-    padding-left: 15px;
-    padding-top: 5px;
+    border-radius: 0.313em;
+    padding-left: 0.938em;
+    padding-top: 0.313em;
     text-align: center;
 }
 
 #options-form li p {
     display: inline-block;
-    margin-left: 5px;
+    margin-left: 0.313em;
 }
 
 #confirmation-alert {
@@ -157,7 +157,7 @@ button:hover {
 
 .slide {
     display: inline-block;
-    margin-right: 5px;
+    margin-right: 0.313em;
     background-color: #FF7F00;
     border-style: solid;
     border-color: black;
@@ -170,12 +170,12 @@ button:hover {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    padding: 15px;
+    padding: 0.938em;
 }
 
 .slide:hover {
-    -webkit-box-shadow: 0 0 8px #5c5012;
-    box-shadow: 0 0 8px #5c5012;
+    -webkit-box-shadow: 0 0 0.5em #5c5012;
+    box-shadow: 0 0 0.5em #5c5012;
 }
 
 .slide:active {
