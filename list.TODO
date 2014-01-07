@@ -5,12 +5,11 @@ Letter Wall Project:
   ✔ Criar botões do jogo @done (14-01-05 23:15)
   ✔ Criar tela de placar @done (14-01-05 23:15)
 ☐ Colocar audio compativel com o jogo
-☐ ao_silenciar() - silenciar todos os sons do jogo #Game.js
 ☐ Carregamento do audio(jogo)
 ☐ ativar audio de 'palavra errada'
 ☐ ativar audio de 'palavra certa'
 ☐ Alterar audio se ouver mudanças nas configurações
-☐ Regular velocidade para até 9 pixels e a partir diminuir tempo de respawn
+✔ Regular velocidade para até 9 pixels e a partir diminuir tempo de respawn @done (14-01-07 11:22)
 ✔ Como pausar o jogo @done (14-01-06 08:33)
 ☐ Criar audio de teste na parte de opções, ao usuario selecionar volume.
 ☐ Criar botão de novo jogo

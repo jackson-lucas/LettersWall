@@ -48,7 +48,7 @@ App.Classes.Game = (function () {
         this.ALTURA_DA_TELA = 350;
         this.DICIONARIO = JSON.parse(App.JSON.DICIONARIO);
         this.AUMENTO_DA_VELOCIDADE = 3;
-        this.PONTUACAO_POR_NIVEL = 10;
+        this.PONTUACAO_POR_NIVEL = 30;
         this.colunas = [[], [], [], []];
         this.blocos_selecionados = [];
         this.velocidade = 2;
@@ -66,10 +66,12 @@ App.Classes.Game = (function () {
         function pontuar() {
             var blocos_selecionados_tamanho = that.blocos_selecionados.length;
 
-            if (blocos_selecionados_tamanho > 1) {
-                pontuacao += blocos_selecionados_tamanho * 2;
-            } else {
-                pontuacao++;
+            if(!that.acabar_jogo) {
+                if (blocos_selecionados_tamanho > 1) {
+                    pontuacao += blocos_selecionados_tamanho * 2;
+                } else {
+                    pontuacao++;
+                }
             }
         }
 
@@ -114,6 +116,11 @@ App.Classes.Game = (function () {
         return true;
     };
 
+    Game.prototype.finalizar = function() {
+        this.acabar_jogo = true;
+        // Aqui armazenar a pontuação em outro local
+    };
+
     Game.prototype.criar_novo_bloco = function () {
         var coluna_id = Math.floor(Math.random() * 4), letra_id, letra, quantidade_colunas_cheias = 0;
 
@@ -121,7 +128,7 @@ App.Classes.Game = (function () {
             quantidade_colunas_cheias++;
             if (quantidade_colunas_cheias >= 4) {
                 if (this.colunas[0][0][1] >= 0 && this.colunas[1][0][1] >= 0 && this.colunas[2][0][1] >= 0 && this.colunas[3][0][1] >= 0) {
-                    this.acabar_jogo = true;
+                    this.finalizar();
                 }
 
                 // Situação em que todas as colunas estão cheias porém o muro não foi completado
@@ -251,77 +258,88 @@ App.Classes.Game = (function () {
     Game.prototype.verificar_nivel = function() {
         var nivel = Math.floor(this.get_pontos() / this.PONTUACAO_POR_NIVEL);
 
-        this.velocidade = (nivel * this.AUMENTO_DA_VELOCIDADE) || this.velocidade;
+        if(nivel < 4) {
+            this.velocidade = (nivel * this.AUMENTO_DA_VELOCIDADE) || this.velocidade;    
+        } else {
+            this.segundos_para_criar_bloco -= 0.5 * (nivel - 3);
+        }
+        
         console.log("velocidade atual: " + this.velocidade);
+        console.log("segundos_para_criar_bloco: " + this.segundos_para_criar_bloco);
     };
 
     // bloco_selecionado = [letra, coluna_id, posicao_id]
     Game.prototype.ao_confirmar = function () {
         var palavra_a_procurar = "", i, blocos_selecionados_tamanho = this.blocos_selecionados.length, lista_das_palavras, lista_das_palavras_tamanho;
 
-        if (blocos_selecionados_tamanho > 0) {
-            this.blocos_selecionados.sort(this.ordenacao_crescente_por_letra);
+        if (!this.pausar_jogo) { 
+            if (blocos_selecionados_tamanho > 0) {
+                this.blocos_selecionados.sort(this.ordenacao_crescente_por_letra);
 
-            for (i = 0; i < blocos_selecionados_tamanho; i++) {
-                palavra_a_procurar += this.blocos_selecionados[i][0];
-            }
+                for (i = 0; i < blocos_selecionados_tamanho; i++) {
+                    palavra_a_procurar += this.blocos_selecionados[i][0];
+                }
 
-            if (this.DICIONARIO[palavra_a_procurar[0]] != undefined) {
-                lista_das_palavras = this.DICIONARIO[palavra_a_procurar[0]][blocos_selecionados_tamanho - 1];
-                if (lista_das_palavras != undefined) {
-                    lista_das_palavras_tamanho = lista_das_palavras.length;
-                    for (i = 0; i < lista_das_palavras_tamanho; i++) {
-                        if (lista_das_palavras[i] == palavra_a_procurar) {
-                            // TODO ativar audio de 'palavra certa'
-                            this.pontuar();
-                            this.verificar_nivel();
-                            console.log("Pontuação: " + this.get_pontos());
-                            console.log("palavra: " + palavra_a_procurar);
-                            this.blocos_selecionados.sort(this.maior_index);
-                            console.log("Blocos reoodernados: " + this.blocos_selecionados);
-                            this.remover_blocos_selecionados();
+                if (this.DICIONARIO[palavra_a_procurar[0]] != undefined) {
+                    lista_das_palavras = this.DICIONARIO[palavra_a_procurar[0]][blocos_selecionados_tamanho - 1];
+                    if (lista_das_palavras != undefined) {
+                        lista_das_palavras_tamanho = lista_das_palavras.length;
+                        for (i = 0; i < lista_das_palavras_tamanho; i++) {
+                            if (lista_das_palavras[i] == palavra_a_procurar) {
+                                // TODO ativar audio de 'palavra certa'
+                                this.pontuar();
+                                this.verificar_nivel();
+                                console.log("Pontuação: " + this.get_pontos());
+                                console.log("palavra: " + palavra_a_procurar);
+                                this.blocos_selecionados.sort(this.maior_index);
+                                console.log("Blocos reoodernados: " + this.blocos_selecionados);
+                                this.remover_blocos_selecionados();
 
-                            return;
+                                return;
+                            }
                         }
                     }
                 }
-            }
 
-            for (i = 0; i < blocos_selecionados_tamanho; i++) {
-                this.colunas[this.blocos_selecionados[i][1]][this.blocos_selecionados[i][2]][2] = 2;
+                for (i = 0; i < blocos_selecionados_tamanho; i++) {
+                    this.colunas[this.blocos_selecionados[i][1]][this.blocos_selecionados[i][2]][2] = 2;
+                }
+                this.blocos_selecionados = [];
+                // TODO ativar audio de 'palavra errada'
+                console.log("não existe");
             }
-            this.blocos_selecionados = [];
-            // TODO ativar audio de 'palavra errada'
-            console.log("não existe");
         }
     };
 
     Game.prototype.ao_clicar = function (evento) {
         var mouse_posicao = this.get_posicao_mouse(evento), id, i;
 
-        console.log(mouse_posicao.x, mouse_posicao.y);
+        if (!this.pausar_jogo) { 
 
-        if (mouse_posicao.x < 50) {
-            id = 0;
-        } else if (mouse_posicao.x < 100) {
-            id = 1;
-        } else if (mouse_posicao.x < 150) {
-            id = 2;
-        } else if (mouse_posicao.x < 200) {
-            id = 3;
-        }
+            console.log(mouse_posicao.x, mouse_posicao.y);
 
-        for (i = 0; i < this.colunas[id].length; i++) {
-            if (mouse_posicao.y >= this.colunas[id][i][1]) {
-                if (this.colunas[id][i][2] === 0) {
-                    this.colunas[id][i][2] = 1;
-                    this.blocos_selecionados.push([this.colunas[id][i][0], id, i]);
-                } else {
-                    this.colunas[id][i][2] = 0;
-                    this.remover_bloco_dos_selecionado(id, i);
+            if (mouse_posicao.x < 50) {
+                id = 0;
+            } else if (mouse_posicao.x < 100) {
+                id = 1;
+            } else if (mouse_posicao.x < 150) {
+                id = 2;
+            } else if (mouse_posicao.x < 200) {
+                id = 3;
+            }
+
+            for (i = 0; i < this.colunas[id].length; i++) {
+                if (mouse_posicao.y >= this.colunas[id][i][1]) {
+                    if (this.colunas[id][i][2] === 0) {
+                        this.colunas[id][i][2] = 1;
+                        this.blocos_selecionados.push([this.colunas[id][i][0], id, i]);
+                    } else {
+                        this.colunas[id][i][2] = 0;
+                        this.remover_bloco_dos_selecionado(id, i);
+                    }
+                    console.table(this.blocos_selecionados);
+                    break;
                 }
-                console.table(this.blocos_selecionados);
-                break;
             }
         }
     };
