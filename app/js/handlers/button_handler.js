@@ -1,8 +1,14 @@
 App.Handlers.jogar_click = $('#jogar').click(function(){
     if (document.getElementById('canvasOne').getContext) {
-        App.Objects.game = new App.Classes.Game('canvasOne', 'confirm_button');
-        setTimeout(function() { App.Objects.game.chamar_proximo_frame() }, 2000);
+
+        if(App.Objects.game) {
+            App.Objects.game.pausar_jogo = false;
+        } else {
+            App.Objects.game = new App.Classes.Game('canvasOne', 'confirm_button');
+            setTimeout(function() { App.Objects.game.chamar_proximo_frame() }, 2000);
+        }
         $('.card').addClass('flipped');
+        
     } else {
         console.error('Canvas not supported');
     }
@@ -40,6 +46,10 @@ App.Handlers.nav_click = $('.nav-button').click(function(){
                 App.Objects.game.pausar_jogo = true;
                 $(this).find('img').attr('src', 'app/assets/images/play-3-icon-32.png');
             }
+            break;
+        case 5:
+            App.Objects.game.pausar_jogo = true;
+            $('.card').removeClass('flipped');
     }
     
 });
