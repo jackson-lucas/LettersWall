@@ -72,6 +72,8 @@ App.Classes.Game = (function () {
                 } else {
                     pontuacao++;
                 }
+
+                that.mudar_pontos_na_tela();
             }
         }
 
@@ -266,6 +268,10 @@ App.Classes.Game = (function () {
         
         console.log("velocidade atual: " + this.velocidade);
         console.log("segundos_para_criar_bloco: " + this.segundos_para_criar_bloco);
+    };
+
+    Game.prototype.mudar_pontos_na_tela = function() {
+        $('#pontos').text( this.get_pontos() );
     };
 
     // bloco_selecionado = [letra, coluna_id, posicao_id]
