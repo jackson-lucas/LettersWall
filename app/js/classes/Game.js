@@ -1,7 +1,6 @@
 /*
 "Dividir para conquistar, nada é impossível e nunca existe apenas um caminho"
 
-Deixar responsivo depois. primeiro conseguir fazer a lógica do jogo funcionar
 
 Letters Wall
 
@@ -34,7 +33,7 @@ Ideias:
 // bloco_selecionado = [letra, coluna_id, posicao_id]
 
 App.Classes.Game = (function () {
-    function Game(canvas_id, botao_confirmar_id) {
+    function Game(canvas_id, botao_confirmar_id, pontos_id) {
         this.BLOCO_LARGURA = 50;
         this.BLOCO_ALTURA = 50;
         this.COLUNAS_POSICAO_X = [0, 50, 100, 150];
@@ -89,6 +88,7 @@ App.Classes.Game = (function () {
         this.context.font = "30pt Arial";
         this.botao_confirmar = document.getElementById(botao_confirmar_id);
         this.botao_confirmar.onclick = this.ao_confirmar.bind(this);
+        this.tela_pontos = document.getElementById(pontos_id);
 
         // Privileged members
         this.pontuar = function () {
@@ -271,7 +271,7 @@ App.Classes.Game = (function () {
     };
 
     Game.prototype.mudar_pontos_na_tela = function() {
-        $('#pontos').text( this.get_pontos() );
+        this.tela_pontos.textContent = this.get_pontos();
     };
 
     // bloco_selecionado = [letra, coluna_id, posicao_id]

@@ -6,7 +6,7 @@ $(document).ready(function () {
             if(App.Objects.game) {
                 App.Objects.game.pausar_jogo = false;
             } else {
-                App.Objects.game = new App.Classes.Game('canvasOne', 'confirm_button');
+                App.Objects.game = new App.Classes.Game('canvasOne', 'confirm_button', 'pontos');
                 setTimeout(function() { App.Objects.game.chamar_proximo_frame() }, 2000);
             }
             $('.card').addClass('flipped');
@@ -15,7 +15,7 @@ $(document).ready(function () {
             console.error('Canvas not supported');
         }
     });
-    
+
     $('#submit').click(function(){
         // TODO Alterar audio somente se ouve mudanças
 
