@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
 
-    <title>Canvas Example</title>
+    <title>Muro de Letras</title>
 
     <link rel="stylesheet" href="app/css/index.css">
     <!--<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>-->
@@ -87,14 +87,14 @@
                         <div class="nav-button" data-value="4"><img src="app/assets/images/pause-3-icon-32.png"></div>
                     </nav>
                 </div>
-                <div class="tela-do-jogo">
-                    <canvas id="canvasOne" width="200" height="350">
+                <div id="canvas-container" class="tela-do-jogo">
+                    <canvas id="canvas" width="200" height="350">
                         Your browser does not support HTML5 Canvas.
                     </canvas>
                 </div>
                 <div class="tela-do-jogo">
-                    
                     <button id="confirm_button">OK</button>
+                    <button id="new_game">Novo Jogo</button>
                 </div>
             </div>
         </div>
@@ -103,6 +103,7 @@
     <audio preload="auto" src="app/assets/sounds/MattOglseby - 8.ogg"></audio>
     
     <script src="app/js/libraries/jquery2.0.3.min.js"></script>
+    <!--<script src="app/js/libraries/responsive-sketchpad.js"></script>-->
     <script src="app/js/App.js"></script>
     <script src="app/assets/data/dicionario.js"></script>
     <script src="app/js/classes/Game.js"></script>

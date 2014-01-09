@@ -55,7 +55,7 @@ App.Classes.Game = (function () {
         this.acabar_jogo = false;
         this.contador_de_frames = 0;
         this.frame = 60;
-        this.segundos_para_criar_bloco = 3;
+        this.segundos_para_criar_bloco = 0.5;// 3
         this.pausar_jogo = false;
 
         // Private members
@@ -120,6 +120,8 @@ App.Classes.Game = (function () {
 
     Game.prototype.finalizar = function() {
         this.acabar_jogo = true;
+        console.log("terminou jogo");
+        $('#new_game').show('fast');
         // Aqui armazenar a pontuação em outro local
     };
 

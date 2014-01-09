@@ -13,9 +13,10 @@ Letter Wall Project:
 ✔ Como pausar o jogo @done (14-01-06 08:33)
 ☐ Criar audio de teste na parte de opções, ao usuario selecionar volume.
 ☐ Criar botão de novo jogo
+☐ Testar crossbrowser
+☐ Canvas responsivo(avaliar responsive-sketchpad)
+☐  History API
+☐  Fullscreen API
   
-Pode utilizar plugins jquery?
-Jquery Mobile pode ser utilizado?
-Código em portugues?
-Outras bibliotecas e plugins javascript podem ser utilizados?
+
 Design responsivo já na primeira parte?

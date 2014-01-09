@@ -1,12 +1,12 @@
 $(document).ready(function () {
 
     $('#jogar').click(function(){
-        if (document.getElementById('canvasOne').getContext) {
+        if (document.getElementById('canvas').getContext) {
 
             if(App.Objects.game) {
                 App.Objects.game.pausar_jogo = false;
             } else {
-                App.Objects.game = new App.Classes.Game('canvasOne', 'confirm_button', 'pontos');
+                App.Objects.game = new App.Classes.Game('canvas', 'confirm_button', 'pontos', 'new_game');
                 setTimeout(function() { App.Objects.game.chamar_proximo_frame() }, 2000);
             }
             $('.card').addClass('flipped');

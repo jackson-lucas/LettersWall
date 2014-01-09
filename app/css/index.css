@@ -194,3 +194,16 @@ button:hover {
 #placar > *{
     display: inline-block;
 }
+
+#new_game {
+    display: none;
+}
+
+#canvas-container {
+    width: 100%;
+    text-align: center;
+}
+
+#canvas {
+    display: inline-block;
+}
