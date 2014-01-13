@@ -34,7 +34,7 @@ button {
     line-height:4.063rem;
     width:8.188rem;
     
-    text-align:center;
+    text-align: center;
     margin: 1%;
 }
 
@@ -48,7 +48,7 @@ button:hover {
     -ms-perspective: 800;
     perspective: 800;
     position: relative;
-    height: 31.250rem;
+    height: 37.500rem;
     margin: 5%;
 }
 
@@ -197,13 +197,26 @@ button:hover {
 
 #new_game {
     display: none;
+    float: right;
+}
+/*
+#canvas-container {
+    display: -webkit-flex;   
+}
+*/
+#controles {
+    display: -webkit-flex;
+    display: flex;
+ 
+    -webkit-flex-flow: row;
+    flex-flow: row;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -webkit-box-align: center;
 }
 
-#canvas-container {
+#game-container {
     width: 100%;
     text-align: center;
-}
-
-#canvas {
-    display: inline-block;
+    /*display: -webkit-flex;*/
 }

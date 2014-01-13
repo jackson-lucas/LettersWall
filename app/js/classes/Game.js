@@ -47,7 +47,7 @@ App.Classes.Game = (function () {
         this.ALTURA_DA_TELA = 350;
         this.DICIONARIO = JSON.parse(App.JSON.DICIONARIO);
         this.AUMENTO_DA_VELOCIDADE = 3;
-        this.PONTUACAO_POR_NIVEL = 30;
+        this.PONTUACAO_POR_NIVEL = 15;
         this.colunas = [[], [], [], []];
         this.blocos_selecionados = [];
         this.velocidade = 2;
@@ -55,7 +55,7 @@ App.Classes.Game = (function () {
         this.acabar_jogo = false;
         this.contador_de_frames = 0;
         this.frame = 60;
-        this.segundos_para_criar_bloco = 0.5;// 3
+        this.segundos_para_criar_bloco = 1;
         this.pausar_jogo = false;
 
         // Private members

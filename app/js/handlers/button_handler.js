@@ -52,4 +52,11 @@ $(document).ready(function () {
         
     });
 
+    $('#new_game').click(function () {
+        App.Objects.game = new App.Classes.Game('canvas', 'confirm_button', 'pontos', 'new_game');
+        App.Objects.game.chamar_proximo_frame();
+        $('#pontos').text('0');
+        $(this).hide('fast');
+    });
+
 });
