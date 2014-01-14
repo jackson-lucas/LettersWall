@@ -1,23 +1,28 @@
 Letter Wall Project:
 ☐ Criar instruções, info e opções
-✔ Criar interface do jogo @done (14-01-05 23:15)
-  ✔ Criar tela para ajuda, menu, info, opções @done (14-01-03 18:11)
-  ✔ Criar botões do jogo @done (14-01-05 23:15)
-  ✔ Criar tela de placar @done (14-01-05 23:15)
 ☐ Colocar audio compativel com o jogo
+  ☐  Audio de fundo
+  ☐  Audio para confirmação
+  ☐  Audio para erro
+  ☐ Audio para seleção de bloco
+  ☐ Audio para deseceleção de bloco
 ☐ Carregamento do audio(jogo)
 ☐ ativar audio de 'palavra errada'
 ☐ ativar audio de 'palavra certa'
 ☐ Alterar audio se ouver mudanças nas configurações
-✔ Regular velocidade para até 9 pixels e a partir diminuir tempo de respawn @done (14-01-07 11:22)
-✔ Como pausar o jogo @done (14-01-06 08:33)
 ☐ Criar audio de teste na parte de opções, ao usuario selecionar volume.
-☐ Criar botão de novo jogo
 ☐ Testar crossbrowser
 ☐ Canvas responsivo(avaliar responsive-sketchpad)
 ☐  History API
 ☐  Fullscreen API
 ☐  Coordenar a criação das letras de acordo com a frequencia delas no nosso idioma
-  
 
-Design responsivo já na primeira parte?
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+Archive:
+ ✔ Criar botão de novo jogo @done (14-01-13 20:32)
+ ✔ Regular velocidade para até 9 pixels e a partir diminuir tempo de respawn @done (14-01-07 11:22)
+ ✔ Como pausar o jogo @done (14-01-06 08:33)
+ ✔ Criar tela de placar @done (14-01-05 23:15) @project(Letter Wall Project)
+ ✔ Criar interface do jogo @done (14-01-05 23:15)
+ ✔ Criar botões do jogo @done (14-01-05 23:15) @project(Letter Wall Project)
+ ✔ Criar tela para ajuda, menu, info, opções @done (14-01-03 18:11) @project(Letter Wall Project)
