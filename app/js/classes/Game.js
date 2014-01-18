@@ -56,11 +56,12 @@ App.Classes.Game = (function () {
         this.contador_de_frames = 0;
         this.frame = 60;
         this.segundos_para_criar_bloco = 1;
-        this.pausar_jogo = false;
+        this.jogo_esta_pausado = false;
 
         // Private members
-        var that = this;
-        var pontuacao = 0;
+        var that = this,
+            pontuacao = 0,
+            sounds = document.getElementsByTagName("audio");
 
         function pontuar() {
             var blocos_selecionados_tamanho = that.blocos_selecionados.length;
@@ -81,6 +82,17 @@ App.Classes.Game = (function () {
         }
 
         // Public members
+
+        this.background_music = sounds[0];
+        this.background_music.play();
+        this.background_music.volume = App.Objects.background_volume;
+        console.log(App.Objects.background_volume);
+        this.confirm_sfx = sounds[1];
+        this.confirm_sfx.volume = App.Objects.sounds_effects_volume;
+        this.deny_sfx = sounds[2];
+        this.deny_sfx.volume = App.Objects.sounds_effects_volume;
+
+        
         this.canvas = document.getElementById(canvas_id);
         this.canvas.onclick = this.ao_clicar.bind(this);
         this.context = this.canvas.getContext('2d');
@@ -120,8 +132,14 @@ App.Classes.Game = (function () {
 
     Game.prototype.finalizar = function() {
         this.acabar_jogo = true;
+
+        // Stop background music
+        this.background_music.pause();
+        this.background_music.currentTime = 0;
+
         console.log("terminou jogo");
         $('#new_game').show('fast');
+
         // Aqui armazenar a pontuação em outro local
     };
 
@@ -167,10 +185,28 @@ App.Classes.Game = (function () {
         }
     };
 
+    Game.prototype.estado_do_jogo = function() {
+        return this.jogo_esta_pausado;
+    };
+
+    // 1 = pausar, 0 = continuar
+    Game.prototype.mudar_estado_do_jogo = function(estado) {
+        if(estado == 1) {
+            this.jogo_esta_pausado = true;
+            this.background_music.pause();
+        } else {
+
+            this.background_music.volume = App.Objects.background_volume;
+            this.background_music.play();
+            this.sounds_effects_volume = App.Objects.sounds_effects_volume;
+            this.jogo_esta_pausado = false;
+        }
+    };
+
     Game.prototype.proximo_frame = function () {
         var i, j, bloco_posterior_posicao_y, tamanho_coluna_atual, coluna_atual, posicao_e_tamanho_do_bloco;
 
-        if (!this.pausar_jogo) {       
+        if (!this.jogo_esta_pausado) {       
             this.context.clearRect(0, 0, 200, 350);
             
             if(this.contador_de_frames === 0) {
@@ -264,7 +300,7 @@ App.Classes.Game = (function () {
 
         if(nivel < 4) {
             this.velocidade = (nivel * this.AUMENTO_DA_VELOCIDADE) || this.velocidade;    
-        } else {
+        } else if(this.segundos_para_criar_bloco > 1) {
             this.segundos_para_criar_bloco -= 0.5 * (nivel - 3);
         }
         
@@ -280,7 +316,7 @@ App.Classes.Game = (function () {
     Game.prototype.ao_confirmar = function () {
         var palavra_a_procurar = "", i, blocos_selecionados_tamanho = this.blocos_selecionados.length, lista_das_palavras, lista_das_palavras_tamanho;
 
-        if (!this.pausar_jogo) { 
+        if (!this.jogo_esta_pausado) { 
             if (blocos_selecionados_tamanho > 0) {
                 this.blocos_selecionados.sort(this.ordenacao_crescente_por_letra);
 
@@ -295,6 +331,7 @@ App.Classes.Game = (function () {
                         for (i = 0; i < lista_das_palavras_tamanho; i++) {
                             if (lista_das_palavras[i] == palavra_a_procurar) {
                                 // TODO ativar audio de 'palavra certa'
+                                this.confirm_sfx.play();
                                 this.pontuar();
                                 this.verificar_nivel();
                                 console.log("Pontuação: " + this.get_pontos());
@@ -314,6 +351,7 @@ App.Classes.Game = (function () {
                 }
                 this.blocos_selecionados = [];
                 // TODO ativar audio de 'palavra errada'
+                this.deny_sfx.play();
                 console.log("não existe");
             }
         }
@@ -322,7 +360,7 @@ App.Classes.Game = (function () {
     Game.prototype.ao_clicar = function (evento) {
         var mouse_posicao = this.get_posicao_mouse(evento), id, i;
 
-        if (!this.pausar_jogo) { 
+        if (!this.jogo_esta_pausado) { 
 
             console.log(mouse_posicao.x, mouse_posicao.y);
 

@@ -1,24 +1,28 @@
 Letter Wall Project:
-☐ Criar instruções, info e opções
-☐ Colocar audio compativel com o jogo
-  ☐  Audio de fundo
-  ☐  Audio para confirmação
-  ☐  Audio para erro
-  ☐ Audio para seleção de bloco
-  ☐ Audio para deseceleção de bloco
+☐ Criar instruções
+☐ Criar info
+☐ Audio para seleção de bloco
+☐ Audio para deseceleção de bloco
 ☐ Carregamento do audio(jogo)
-☐ ativar audio de 'palavra errada'
-☐ ativar audio de 'palavra certa'
-☐ Alterar audio se ouver mudanças nas configurações
 ☐ Criar audio de teste na parte de opções, ao usuario selecionar volume.
 ☐ Testar crossbrowser
-☐ Canvas responsivo(avaliar responsive-sketchpad)
-☐  History API
 ☐  Fullscreen API
 ☐  Coordenar a criação das letras de acordo com a frequencia delas no nosso idioma
+☐ Implementar Arvore Patricia no Dicionario
+☐  Colocar source nos audios como mp3 e wav p/ todos
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ Criar opções @done (14-01-17 21:52)
+ ✘ Canvas responsivo(avaliar responsive-sketchpad) @cancelled (14-01-17 21:51)
+ ✘  History API @cancelled (14-01-17 21:51)
+ ✔ ativar audio de 'palavra errada' @done (14-01-17 21:50)
+ ✔ ativar audio de 'palavra certa' @done (14-01-17 21:50)
+ ✔ Alterar audio se ouver mudanças nas configurações @done (14-01-17 21:50)
+ ✔ Colocar audio compativel com o jogo @done (14-01-17 21:49)
+ ✔  Audio para erro @done (14-01-17 21:49) @project(Letter Wall Project)
+ ✔  Audio para confirmação @done (14-01-17 21:49) @project(Letter Wall Project)
+ ✔  Audio de fundo @done (14-01-17 21:49) @project(Letter Wall Project)
  ✔ Criar botão de novo jogo @done (14-01-13 20:32)
  ✔ Regular velocidade para até 9 pixels e a partir diminuir tempo de respawn @done (14-01-07 11:22)
  ✔ Como pausar o jogo @done (14-01-06 08:33)
