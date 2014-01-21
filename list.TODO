@@ -1,18 +1,19 @@
 Letter Wall Project:
 ☐ Criar instruções
 ☐ Criar info
-☐ Audio para seleção de bloco
-☐ Audio para deseceleção de bloco
 ☐ Carregamento do audio(jogo)
-☐ Criar audio de teste na parte de opções, ao usuario selecionar volume.
+✘ Criar audio de teste na parte de opções, ao usuario selecionar volume. @cancelled (14-01-19 16:00)
 ☐ Testar crossbrowser
-☐  Fullscreen API
+✘  Fullscreen API @cancelled (14-01-19 16:00)
 ☐  Coordenar a criação das letras de acordo com a frequencia delas no nosso idioma
 ☐ Implementar Arvore Patricia no Dicionario
 ☐  Colocar source nos audios como mp3 e wav p/ todos
+✔  Ao pausar bloquear tela @done (14-01-19 15:06)
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ Audio para seleção de bloco @done (14-01-18 17:02)
+ ✔ Audio para deseceleção de bloco @done (14-01-18 17:02)
  ✔ Criar opções @done (14-01-17 21:52)
  ✘ Canvas responsivo(avaliar responsive-sketchpad) @cancelled (14-01-17 21:51)
  ✘  History API @cancelled (14-01-17 21:51)

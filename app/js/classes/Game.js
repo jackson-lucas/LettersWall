@@ -31,7 +31,7 @@ Ideias:
 // bloco = [letra, y, esta_selecionado]
 // Coluna = bloco[]
 // bloco_selecionado = [letra, coluna_id, posicao_id]
-
+// VOGAIS e CONSOANTES, cada LETRA terá [letra, quantidade_atual, porcentagem_maxima]
 App.Classes.Game = (function () {
     function Game(canvas_id, botao_confirmar_id, pontos_id) {
         this.BLOCO_LARGURA = 50;
@@ -55,8 +55,9 @@ App.Classes.Game = (function () {
         this.acabar_jogo = false;
         this.contador_de_frames = 0;
         this.frame = 60;
-        this.segundos_para_criar_bloco = 1;
+        this.segundos_para_criar_bloco = 3;
         this.jogo_esta_pausado = false;
+        this.quantidade_de_letras = 0;
 
         // Private members
         var that = this,
@@ -91,6 +92,8 @@ App.Classes.Game = (function () {
         this.confirm_sfx.volume = App.Objects.sounds_effects_volume;
         this.deny_sfx = sounds[2];
         this.deny_sfx.volume = App.Objects.sounds_effects_volume;
+        this.selection_sfx = sounds[3];
+        this.selection_sfx.volume = App.Objects.sounds_effects_volume;
 
         
         this.canvas = document.getElementById(canvas_id);
@@ -173,6 +176,7 @@ App.Classes.Game = (function () {
                 letra = this.CONSOANTES[letra_id];
             }
             this.criar_vogal = !this.criar_vogal;
+            this.quantidade_de_letras++;
 
             // Adicionando na tela
             this.context.strokeRect(this.COLUNAS_POSICAO_X[coluna_id], this.COLUNAS_POSICAO_Y_INICIAL, this.BLOCO_LARGURA, this.BLOCO_ALTURA);
@@ -206,8 +210,9 @@ App.Classes.Game = (function () {
     Game.prototype.proximo_frame = function () {
         var i, j, bloco_posterior_posicao_y, tamanho_coluna_atual, coluna_atual, posicao_e_tamanho_do_bloco;
 
+        this.context.clearRect(0, 0, 200, 350);
+
         if (!this.jogo_esta_pausado) {       
-            this.context.clearRect(0, 0, 200, 350);
             
             if(this.contador_de_frames === 0) {
                 this.criar_novo_bloco();
@@ -265,7 +270,12 @@ App.Classes.Game = (function () {
                     }
                 }
             }
+        } else {
+            this.context.font = "15pt Arial";
+            this.context.fillText("Jogo Pausado", 100, 175);
+            this.context.font = "30pt Arial";
         }
+
     };
 
     // Pega posicao do mouse em relação ao canvas e não a janela.
@@ -376,6 +386,8 @@ App.Classes.Game = (function () {
 
             for (i = 0; i < this.colunas[id].length; i++) {
                 if (mouse_posicao.y >= this.colunas[id][i][1]) {
+                    this.selection_sfx.play();
+
                     if (this.colunas[id][i][2] === 0) {
                         this.colunas[id][i][2] = 1;
                         this.blocos_selecionados.push([this.colunas[id][i][0], id, i]);
