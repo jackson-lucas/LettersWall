@@ -40,8 +40,8 @@ App.Classes.Game = (function () {
         this.LETRAS_POSICAO_X = [25, 75, 125, 175];
         this.COLUNAS_POSICAO_Y_INICIAL = -50;
         this.LETRAS_POSICAO_Y_INICIAL = this.COLUNAS_POSICAO_Y_INICIAL + this.BLOCO_ALTURA - 10;
-        this.VOGAIS = ['A', 'E', 'I', 'O', 'U'];
-        this.CONSOANTES = ['B', 'C', 'D', 'F', 'G', 'H', 'J', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'X', 'Z'];
+        this.VOGAIS = [['A', 0, 15], ['E', 0, 12.89], ['I', 0, 6.33], ['O', 0, 11], ['U', 0, 4.74]];
+        this.CONSOANTES = [['B', 0, 1.01] , ['C', 0, 3.78], ['D', 0, 4.86], ['F', 0, 0.99], ['G', 0, 1.26], ['H', 0, 1.24], ['J', 0, 0.39], ['L', 0, 2.71], ['M', 0, 4.62], ['N', 0, 4.92], ['P', 0, 2.45], ['Q', 0, 1.17], ['R', 0, 6.36], ['S', 0, 7.61], ['T', 0, 4.23], ['V', 0, 1.62], ['X', 0, 0.2], ['Z', 0, 0.45]];
         this.COLUNAS_TAMANHO = 7;
         this.QUANTIDADE_DE_COLUNAS = 4;
         this.ALTURA_DA_TELA = 350;
@@ -169,11 +169,17 @@ App.Classes.Game = (function () {
 
         if (!this.acabar_jogo) {
             if (this.criar_vogal) {
-                letra_id = Math.floor(Math.random() * this.VOGAIS.length);
-                letra = this.VOGAIS[letra_id];
+                do {
+                    letra_id = Math.floor(Math.random() * this.VOGAIS.length);    
+                } while( ((this.VOGAIS[letra_id][1] / this.quantidade_de_letras) * 100) > this.VOGAIS[letra_id][2]);
+                
+                letra = this.VOGAIS[letra_id][0];
             } else {
-                letra_id = Math.floor(Math.random() * this.CONSOANTES.length);
-                letra = this.CONSOANTES[letra_id];
+                do {
+                    letra_id = Math.floor(Math.random() * this.CONSOANTES.length);
+                } while( ((this.CONSOANTES[letra_id][1] / this.quantidade_de_letras) * 100) > this.CONSOANTES[letra_id][2]);
+
+                letra = this.CONSOANTES[letra_id][0];
             }
             this.criar_vogal = !this.criar_vogal;
             this.quantidade_de_letras++;
