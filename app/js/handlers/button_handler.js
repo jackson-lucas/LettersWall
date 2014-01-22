@@ -3,11 +3,12 @@ $(document).ready(function () {
     $('#jogar').click(function(){
         if (document.getElementById('canvas').getContext) {
 
-            if(App.Objects.game) {
+            if(App.Objects.game && App.Objects.game.acabar_jogo === false) {
                 App.Objects.game.mudar_estado_do_jogo(0);
             } else {
                 App.Objects.game = new App.Classes.Game('canvas', 'confirm_button', 'pontos', 'new_game');
                 setTimeout(function() { App.Objects.game.chamar_proximo_frame() }, 2000);
+                $('#new_game').hide('fast');
             }
             $('.card').addClass('flipped');
             

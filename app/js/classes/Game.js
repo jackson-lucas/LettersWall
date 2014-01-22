@@ -92,8 +92,6 @@ App.Classes.Game = (function () {
         this.confirm_sfx.volume = App.Objects.sounds_effects_volume;
         this.deny_sfx = sounds[2];
         this.deny_sfx.volume = App.Objects.sounds_effects_volume;
-        this.selection_sfx = sounds[3];
-        this.selection_sfx.volume = App.Objects.sounds_effects_volume;
 
         
         this.canvas = document.getElementById(canvas_id);
@@ -104,6 +102,7 @@ App.Classes.Game = (function () {
         this.botao_confirmar = document.getElementById(botao_confirmar_id);
         this.botao_confirmar.onclick = this.ao_confirmar.bind(this);
         this.tela_pontos = document.getElementById(pontos_id);
+        this.tela_pontos.textContent = "0";
 
         // Privileged members
         this.pontuar = function () {
@@ -112,6 +111,7 @@ App.Classes.Game = (function () {
         this.get_pontos = function () {
             return get_pontos();
         };
+
     }
 
     Game.prototype.remover_blocos_selecionados = function () {
@@ -392,7 +392,6 @@ App.Classes.Game = (function () {
 
             for (i = 0; i < this.colunas[id].length; i++) {
                 if (mouse_posicao.y >= this.colunas[id][i][1]) {
-                    this.selection_sfx.play();
 
                     if (this.colunas[id][i][2] === 0) {
                         this.colunas[id][i][2] = 1;
