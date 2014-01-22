@@ -199,7 +199,7 @@
 			"file": "app/js/classes/Game.js",
 			"settings":
 			{
-				"buffer_size": 16837,
+				"buffer_size": 16679,
 				"line_ending": "Unix"
 			}
 		},
@@ -223,7 +223,7 @@
 			"file": "index.html",
 			"settings":
 			{
-				"buffer_size": 5747,
+				"buffer_size": 5644,
 				"line_ending": "Unix"
 			}
 		},
@@ -236,10 +236,13 @@
 			}
 		},
 		{
+			"contents": "Letter Wall Project:\n☐ Criar instruções\n☐ Criar info\n☐ Carregamento do audio(jogo)\n☐ Testar crossbrowser\n☐ Implementar Arvore Patricia no Dicionario\n☐  Colocar source nos audios como mp3 e wav p/ todos\n☐ Adicionar highscore\n☐ Mensagem de erro para dispositivos não suportados\n☐ Ao pressionar enter utilizar msm evento do botao confirmar(ok)\n☐ Mudar cor dos botões para laranja(somente não o do ok)\n☐ Colocar créditos para os criadores dos efeitos sonoros\n☐ Tirar console.log's para a fase de versão final\n\n＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿\nArchive:\n ✔  Ao jogo terminar, e o jogador voltar, permitir criar novo jogo com o jogo @done (14-01-21 14:47)\n ✔ Tirar efeitos de seleção(som) @done (14-01-21 22:17)\n ✔ Remover letras unicas no dicionario @done (14-01-21 22:28)\n ✘ Criar audio de teste na parte de opções, ao usuario selecionar volume. @cancelled (14-01-19 16:00)\n ✘  Fullscreen API @cancelled (14-01-19 16:00)\n ✔  Coordenar a criação das letras de acordo com a frequencia delas no nosso idioma @done (14-01-21 13:56)\n ✔  Ao pausar bloquear tela @done (14-01-19 15:06)\n ✔ Audio para seleção de bloco @done (14-01-18 17:02)\n ✔ Audio para deseceleção de bloco @done (14-01-18 17:02)\n ✔ Criar opções @done (14-01-17 21:52)\n ✘ Canvas responsivo(avaliar responsive-sketchpad) @cancelled (14-01-17 21:51)\n ✘  History API @cancelled (14-01-17 21:51)\n ✔ ativar audio de 'palavra errada' @done (14-01-17 21:50)\n ✔ ativar audio de 'palavra certa' @done (14-01-17 21:50)\n ✔ Alterar audio se ouver mudanças nas configurações @done (14-01-17 21:50)\n ✔ Colocar audio compativel com o jogo @done (14-01-17 21:49)\n ✔  Audio para erro @done (14-01-17 21:49) @project(Letter Wall Project)\n ✔  Audio para confirmação @done (14-01-17 21:49) @project(Letter Wall Project)\n ✔  Audio de fundo @done (14-01-17 21:49) @project(Letter Wall Project)\n ✔ Criar botão de novo jogo @done (14-01-13 20:32)\n ✔ Regular velocidade para até 9 pixels e a partir diminuir tempo de respawn @done (14-01-07 11:22)\n ✔ Como pausar o jogo @done (14-01-06 08:33)\n ✔ Criar tela de placar @done (14-01-05 23:15) @project(Letter Wall Project)\n ✔ Criar interface do jogo @done (14-01-05 23:15)\n ✔ Criar botões do jogo @done (14-01-05 23:15) @project(Letter Wall Project)\n ✔ Criar tela para ajuda, menu, info, opções @done (14-01-03 18:11) @project(Letter Wall Project)\n",
 			"file": "list.TODO",
+			"file_size": 2453,
+			"file_write_time": 130348315136307161,
 			"settings":
 			{
-				"buffer_size": 2176,
+				"buffer_size": 2313,
 				"line_ending": "Unix"
 			}
 		}
@@ -327,8 +330,10 @@
 	},
 	"file_history":
 	[
-		"/home/jackson/.config/sublime-text-3/Packages/PlainTasks/messages/Tutorial.todo",
 		"/home/jackson/Documents/Projects/letters wall/app/assets/data/dicionario.js",
+		"/home/jackson/Documents/Projects/CompiladorDicionario/index.html",
+		"/home/jackson/Documents/Projects/CompiladorDicionario/palavras_compiler.js",
+		"/home/jackson/.config/sublime-text-3/Packages/PlainTasks/messages/Tutorial.todo",
 		"/home/jackson/Documents/Projects/letters wall/index.html",
 		"/home/jackson/Documents/Projects/letters wall/app/js/App.js",
 		"/home/jackson/Documents/Projects/letters wall/app/js/handlers/slide_handler.js",
@@ -374,6 +379,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"^\"k",
 			"placar",
 			"tela_pontos",
 			"pontos_id",
@@ -500,13 +506,12 @@
 			"blocos_sele",
 			"evt",
 			"velocidade",
-			"string",
-			"number"
+			"string"
 		],
 		"highlight": true,
 		"in_selection": false,
 		"preserve_case": false,
-		"regex": false,
+		"regex": true,
 		"replace_history":
 		[
 			"body2"
@@ -520,7 +525,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 7,
 			"sheets":
 			[
 				{
@@ -634,10 +639,18 @@
 								"bh_regex_center",
 								"bh_regex_open",
 								"bh_regex_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
 								"bh_default",
 								"bh_default_center",
 								"bh_default_open",
@@ -646,22 +659,14 @@
 								"bh_round_center",
 								"bh_round_open",
 								"bh_round_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
 								"bh_unmatched",
 								"bh_unmatched_center",
 								"bh_unmatched_open",
-								"bh_unmatched_close"
+								"bh_unmatched_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close"
 							],
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"tab_size": 4,
@@ -671,7 +676,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
@@ -680,15 +685,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 16837,
+						"buffer_size": 16679,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3960,
-								3960
+								15924,
+								15924
 							]
 						],
 						"settings":
@@ -708,10 +713,18 @@
 								"bh_regex_center",
 								"bh_regex_open",
 								"bh_regex_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
 								"bh_default",
 								"bh_default_center",
 								"bh_default_open",
@@ -720,32 +733,24 @@
 								"bh_round_center",
 								"bh_round_open",
 								"bh_round_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
 								"bh_unmatched",
 								"bh_unmatched_center",
 								"bh_unmatched_open",
-								"bh_unmatched_close"
+								"bh_unmatched_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close"
 							],
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1053.0,
+						"translation.y": 4810.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -817,7 +822,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
@@ -854,10 +859,18 @@
 								"bh_regex_center",
 								"bh_regex_open",
 								"bh_regex_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
 								"bh_default",
 								"bh_default_center",
 								"bh_default_open",
@@ -866,22 +879,14 @@
 								"bh_round_center",
 								"bh_round_open",
 								"bh_round_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
 								"bh_unmatched",
 								"bh_unmatched_center",
 								"bh_unmatched_open",
-								"bh_unmatched_close"
+								"bh_unmatched_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close"
 							],
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
 						},
@@ -889,7 +894,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -898,15 +903,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5747,
+						"buffer_size": 5644,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3970,
-								3970
+								5253,
+								5253
 							]
 						],
 						"settings":
@@ -926,10 +931,18 @@
 								"bh_regex_center",
 								"bh_regex_open",
 								"bh_regex_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
 								"bh_default",
 								"bh_default_center",
 								"bh_default_open",
@@ -938,32 +951,24 @@
 								"bh_round_center",
 								"bh_round_open",
 								"bh_round_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
 								"bh_unmatched",
 								"bh_unmatched_center",
 								"bh_unmatched_open",
-								"bh_unmatched_close"
+								"bh_unmatched_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close"
 							],
 							"syntax": "Packages/HTML/HTML.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 351.0,
+						"translation.y": 1027.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -1046,15 +1051,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2176,
+						"buffer_size": 2313,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								586,
-								586
+								487,
+								487
 							]
 						],
 						"settings":
@@ -1074,10 +1079,18 @@
 								"bh_regex_center",
 								"bh_regex_open",
 								"bh_regex_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
 								"bh_default",
 								"bh_default_center",
 								"bh_default_open",
@@ -1086,22 +1099,14 @@
 								"bh_round_center",
 								"bh_round_open",
 								"bh_round_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
 								"bh_unmatched",
 								"bh_unmatched_center",
 								"bh_unmatched_open",
-								"bh_unmatched_close"
+								"bh_unmatched_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close"
 							],
 							"syntax": "Packages/PlainTasks/PlainTasks.tmLanguage",
 							"tab_size": 2
@@ -1110,7 +1115,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]

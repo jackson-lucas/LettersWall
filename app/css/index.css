@@ -21,7 +21,7 @@ legend {
 }
 
 button {
-    background-color: #04f517;
+    background-color: #FF7F00;
     border-style: solid;
     border-color: black;
     border-radius: 1rem;
@@ -41,6 +41,10 @@ button {
 button:hover {
     -webkit-box-shadow: 0 0 0.5rem #5c5012;
     box-shadow: 0 0 0.5rem #5c5012;
+}
+
+#confirm_button, #submit {
+    background-color: #04f517;
 }
 
 .container {
@@ -120,6 +124,10 @@ button:hover {
     display: inline-block;
 }
 
+.back > div > * {
+    display: block;
+}
+
 #about p {
     text-align: center;
 }
@@ -183,10 +191,6 @@ button:hover {
     display: inline-block;
 }
 
-.back > div > * {
-    display: block;
-}
-
 #placar {
     font-size: 1.25rem;
 }
@@ -199,19 +203,23 @@ button:hover {
     display: none;
     float: right;
 }
-/*
-#canvas-container {
-    display: -webkit-flex;   
-}
-*/
+
 #controles {
+    display: -moz-flex;
     display: -webkit-flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
  
     -webkit-flex-flow: row;
+    -ms-flex-flow: row;
     flex-flow: row;
+
+    -moz-box-pack: center;
     -webkit-box-pack: center;
+    -moz-justify-content: center;
     -webkit-justify-content: center;
+    -moz-box-align: center;
     -webkit-box-align: center;
 }
 

@@ -104,6 +104,8 @@ App.Classes.Game = (function () {
         this.tela_pontos = document.getElementById(pontos_id);
         this.tela_pontos.textContent = "0";
 
+        document.onkeypress = this.ao_pressionar_enter.bind(this);
+
         // Privileged members
         this.pontuar = function () {
             pontuar();
@@ -372,6 +374,13 @@ App.Classes.Game = (function () {
             }
         }
     };
+
+    // ao_confirmar com enter
+    Game.prototype.ao_pressionar_enter = function(event) {
+        if(event.key == "Enter" || event.keyCode == 13) {
+            this.ao_confirmar();
+        }
+    }
 
     Game.prototype.ao_clicar = function (evento) {
         var mouse_posicao = this.get_posicao_mouse(evento), id, i;
