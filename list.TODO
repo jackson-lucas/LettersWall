@@ -1,27 +1,27 @@
 Letter Wall Project:
 ☐ Criar instruções
-☐ Criar info
 ☐ Carregamento do audio(jogo)
-☐ Testar crossbrowser
-☐ Implementar Arvore Patricia no Dicionario
-☐ Colocar source nos audios como mp3 e wav p/ todos
 ☐ Adicionar highscore
+☐ Colocar source nos audios como mp3 e wav p/ todos
+☐ Implementar Arvore Patricia no Dicionario
 ☐ Mensagem de erro para dispositivos não suportados
-☐ Colocar créditos para os criadores dos efeitos sonoros
 ☐ Tirar console.log's para a fase de versão final
 ☐ Padronizar todas as variaveis para o inglês
+☐ Testar crossbrowser
 ☐ Organizar css
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ Criar info @done (14-01-22 21:44)
+ ✔ Colocar créditos para os criadores dos efeitos sonoros @done (14-01-22 21:44)
  ✔ Ao pressionar enter utilizar msm evento do botao confirmar(ok) @done (14-01-22 13:26)
  ✔ Mudar cor dos botões para laranja(somente não o do ok) @done (14-01-22 12:35)
- ✔  Ao jogo terminar, e o jogador voltar, permitir criar novo jogo com o jogo @done (14-01-21 14:47)
- ✔ Tirar efeitos de seleção(som) @done (14-01-21 22:17)
  ✔ Remover letras unicas no dicionario @done (14-01-21 22:28)
+ ✔ Tirar efeitos de seleção(som) @done (14-01-21 22:17)
+ ✔  Ao jogo terminar, e o jogador voltar, permitir criar novo jogo com o jogo @done (14-01-21 14:47)
+ ✔  Coordenar a criação das letras de acordo com a frequencia delas no nosso idioma @done (14-01-21 13:56)
  ✘ Criar audio de teste na parte de opções, ao usuario selecionar volume. @cancelled (14-01-19 16:00)
  ✘  Fullscreen API @cancelled (14-01-19 16:00)
- ✔  Coordenar a criação das letras de acordo com a frequencia delas no nosso idioma @done (14-01-21 13:56)
  ✔  Ao pausar bloquear tela @done (14-01-19 15:06)
  ✔ Audio para seleção de bloco @done (14-01-18 17:02)
  ✔ Audio para deseceleção de bloco @done (14-01-18 17:02)

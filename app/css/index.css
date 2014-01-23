@@ -11,6 +11,10 @@ h3 {
     font-size: 1.250rem;
 }
 
+a {
+    color: black;
+}
+
 canvas {
     border: solid black;
 }
