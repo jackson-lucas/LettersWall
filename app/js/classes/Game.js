@@ -1,4 +1,6 @@
 /*
+Made by: Jackson Lucas - jackson.lsl87@gmail.com
+
 "Dividir para conquistar, nada é impossível e nunca existe apenas um caminho"
 
 
@@ -46,11 +48,11 @@ App.Classes.Game = (function () {
         this.COLUMNS_QUANTITY = 4;
         this.SCREEN_HEIGHT = 350;
         this.DICTIONARY = JSON.parse(App.JSON.DICTIONARY);
-        this.SPEED_INCREASE = 3;
+        this.SPEED_INCREASE = 1;
         this.POINTS_PER_LEVEL = 15;
         this.columns = [[], [], [], []];
         this.selected_blocks = [];
-        this.speed = 2;
+        this.speed = 1;
         this.create_vowel = false;
         this.end_game = false;
         this.frame_counter = 0;
@@ -61,17 +63,18 @@ App.Classes.Game = (function () {
 
         // Private members
         var that = this,
-            score = 0,
+            points = 0,
             sounds = document.getElementsByTagName("audio");
 
-        function pontuar() {
+        
+        function score() {
             var selected_blocks_length = that.selected_blocks.length;
 
             if(!that.end_game) {
                 if (selected_blocks_length > 1) {
-                    score += selected_blocks_length * 2;
+                    points += selected_blocks_length * 2;
                 } else {
-                    score++;
+                    points++;
                 }
 
                 that.change_score_on_screen();
@@ -79,7 +82,7 @@ App.Classes.Game = (function () {
         }
 
         function get_points() {
-            return score;
+            return points;
         }
 
         // Public members
@@ -87,7 +90,6 @@ App.Classes.Game = (function () {
         this.background_music = sounds[0];
         this.background_music.play();
         this.background_music.volume = App.Objects.background_volume;
-        console.log(App.Objects.background_volume);
         this.confirm_sfx = sounds[1];
         this.confirm_sfx.volume = App.Objects.sounds_effects_volume;
         this.deny_sfx = sounds[2];
@@ -109,8 +111,8 @@ App.Classes.Game = (function () {
         window.addEventListener("focus", this.change_status.bind(this, 0), false);
 
         // Privileged members
-        this.pontuar = function () {
-            pontuar();
+        this.score = function () {
+            score();
         };
         this.get_points = function () {
             return get_points();
@@ -205,15 +207,17 @@ App.Classes.Game = (function () {
 
     // 1 = pausar, 0 = continuar
     Game.prototype.change_status = function(status) {
-        if(status == 1) {
-            this.is_paused = true;
-            this.background_music.pause();
-        } else {
+        if(!this.end_game) {
+            if(status == 1) {
+                this.is_paused = true;
+                this.background_music.pause();
+            } else {
 
-            this.background_music.volume = App.Objects.background_volume;
-            this.background_music.play();
-            this.sounds_effects_volume = App.Objects.sounds_effects_volume;
-            this.is_paused = false;
+                this.background_music.volume = App.Objects.background_volume;
+                this.background_music.play();
+                this.sounds_effects_volume = App.Objects.sounds_effects_volume;
+                this.is_paused = false;
+            }
         }
     };
 
@@ -318,10 +322,10 @@ App.Classes.Game = (function () {
     Game.prototype.check_level = function() {
         var level = Math.floor(this.get_points() / this.POINTS_PER_LEVEL);
 
-        if(level < 4) {
+        if(level < 13) {
             this.speed = (level * this.SPEED_INCREASE) || this.speed;    
         } else if(this.create_block_interval > 1) {// seconds
-            this.create_block_interval -= 0.5 * (level - 3);// seconds
+            this.create_block_interval -= 0.5 * (level - 12);// seconds
         }
         
         console.log("speed atual: " + this.speed);
@@ -350,9 +354,8 @@ App.Classes.Game = (function () {
                         dictionary_length = dictionary.length;
                         for (i = 0; i < dictionary_length; i++) {
                             if (dictionary[i] == word_to_search) {
-                                // TODO ativar audio de 'palavra certa'
                                 this.confirm_sfx.play();
-                                this.pontuar();
+                                this.score();
                                 this.check_level();
                                 console.log("Pontuação: " + this.get_points());
                                 console.log("palavra: " + word_to_search);
@@ -370,7 +373,6 @@ App.Classes.Game = (function () {
                     this.columns[this.selected_blocks[i][1]][this.selected_blocks[i][2]][2] = 2;
                 }
                 this.selected_blocks = [];
-                // TODO ativar audio de 'palavra errada'
                 this.deny_sfx.play();
                 console.log("não existe");
             }
