@@ -2,7 +2,7 @@ Letter Wall Project:
 ☐ Criar instruções
 ☐ Criar Página Principal
 ☐ Carregamento do audio(jogo)
-☐ Melhorar tempo dos níveis
+✔ Melhorar tempo dos níveis @done (14-01-28 09:08)
 ✘ Adicionar highscore - Clay.io necessita servidor @cancelled (14-01-27 22:06)
 ☐ Colocar source nos audios como mp3 e wav p/ todos
 ☐ Implementar Arvore Patricia no Dicionario
@@ -10,7 +10,7 @@ Letter Wall Project:
 ☐ Tirar console.log's para a fase de versão final
 ☐ Testar crossbrowser
 ✔ Organizar css @done (14-01-27 22:59)
-☐  Ajeitar pause do botao ao desfocar
+✔  Ajeitar pause do botao ao desfocar @done (14-01-28 09:07)
 ✘ Creditos para iconmonstr por icones - licença isenta disso @cancelled (14-01-27 22:58)
 
 

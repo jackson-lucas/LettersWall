@@ -210,12 +210,14 @@ App.Classes.Game = (function () {
         if(!this.end_game) {
             if(status == 1) {
                 this.is_paused = true;
-                this.background_music.pause();
+                this.background_music.pause();;
+                $('#game-status-img').attr('src', 'app/assets/images/play-3-icon-32.png');
             } else {
 
                 this.background_music.volume = App.Objects.background_volume;
                 this.background_music.play();
                 this.sounds_effects_volume = App.Objects.sounds_effects_volume;
+                $('#game-status-img').attr('src', 'app/assets/images/pause-3-icon-32.png');
                 this.is_paused = false;
             }
         }
