@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="container">
-        <div class="card">
+        <div id="page" class="card">
             <div class="face front">
                 <div id="instructions" class="tab-page">
                     <div>
@@ -20,8 +20,10 @@
                             <div class="nav-button" data-value="1"><img  src="app/assets/images/iconmonstr-undo-4-icon-32.png"></div>
                         </nav>
                     </div>
-                    <div>
-                        Você deve fazer...
+                    <div id="instruction-body" class="body-container">
+                        <div> <img src="app/assets/images/ins1.png"> <p>Blocos com letras surgirão</p> </div>
+                        <div> <img src="app/assets/images/ins2.png"> <p>Selecione letras para formarem palavras em seguida clique no botão OK ou pressione ENTER</p> </div>
+                        <div> <img src="app/assets/images/ins3.png"> <p>O jogo terminar quando o Muro de Letras estiver formado</p> </div>
                     </div>
                 </div>
                 <div id="about" class="tab-page">
@@ -82,8 +84,11 @@
                             <div class="nav-button" data-value="2"><img src="app/assets/images/iconmonstr-info-2-icon-32.png"></div>
                         </nav>
                     </div>
-                    <div class="face-button-container">
-                        <button id="jogar">Jogar</button>
+                    <div class="body-container">
+                        <div id="jogar">
+                            <div>Jogar</div>
+                        </div>
+                        
                     </div>
                 </div>
             </div>

@@ -1,16 +1,17 @@
 Letter Wall Project:
-☐ Criar instruções
 ☐ Criar Página Principal
 ☐ Carregamento do audio(jogo)
 ☐ Colocar source nos audios como mp3 e wav p/ todos
 ☐ Implementar Arvore Patricia no Dicionario
 ☐ Mensagem de erro para dispositivos não suportados
 ☐ Tirar console.log's para a fase de versão final
+☐ Deixar Instruções responsivo
 ☐ Testar crossbrowser
 
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ Criar instruções @done (14-01-28 22:18)
  ✔ Melhorar tempo dos níveis @done (14-01-28 09:08)
  ✔  Ajeitar pause do botao ao desfocar @done (14-01-28 09:07)
  ✔ Organizar css @done (14-01-27 22:59)

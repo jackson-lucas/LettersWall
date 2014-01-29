@@ -37,13 +37,50 @@ button {
     height:4.063rem;
     line-height:4.063rem;
     width:8.188rem;
-    
     text-align: center;
 }
 
 button:hover {
     -webkit-box-shadow: 0 0 0.5rem #5c5012;
     box-shadow: 0 0 0.5rem #5c5012;
+}
+
+#main {
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+
+    -webkit-flex-flow: column;
+    -ms-flex-flow: column;
+    flex-flow: column;
+
+    -moz-box-pack: center;
+    -webkit-box-pack: center;
+    -moz-box-align: center;
+    -webkit-box-align: center; 
+}
+
+#jogar {
+    /* #FF7F00 */
+    background-color: #FFFFFF;
+    border-style: solid;
+    border-color: black;
+    border-radius: 1rem;
+    text-indent:0;
+    font-size: 0.938rem;
+    font-weight:bold;
+    font-style:normal;
+    height:4.063rem;
+    line-height:4.063rem;
+    width:8.188rem;
+    text-align: center;
+}
+
+#jogar > div  {
+    border-radius: 0.8rem;
+    background-color: #FF7F00;
 }
 
 #confirm_button, #submit {
@@ -59,7 +96,7 @@ button:hover {
     margin: 5%;
 }
 
-.face-button-container, #controles {
+.body-container, #controles {
     display: -moz-flex;
     display: -webkit-flex;
     display: -webkit-box;
@@ -76,6 +113,10 @@ button:hover {
     -webkit-justify-content: center;
     -moz-box-align: center;
     -webkit-box-align: center;
+}
+
+#instruction-body > * {
+    text-align: center;
 }
 
 .card.flipped {
@@ -165,12 +206,10 @@ button:hover {
 #options-form li {
     background-color: #c9d0c9;
     opacity: 0.9;
-    margin: 0.313rem;
     border: solid black;
     border-radius: 0.313rem;
-    padding-left: 0.938rem;
-    padding-top: 0.313rem;
     text-align: center;
+    margin-bottom: 0.313rem;
 }
 
 #options-form li p {

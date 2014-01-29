@@ -39,10 +39,8 @@ $(document).ready(function () {
                 if(!App.Objects.game.end_game) {
                     if(App.Objects.game.status() === true) {
                         App.Objects.game.change_status(0);
-                        $(this).find('img').attr('src', 'app/assets/images/pause-3-icon-32.png');
                     } else {
                         App.Objects.game.change_status(1);
-                        $(this).find('img').attr('src', 'app/assets/images/play-3-icon-32.png');
                     }
                 }
                 break;
