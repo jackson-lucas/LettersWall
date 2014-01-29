@@ -20,13 +20,7 @@ Identificador de palavras OK
 Colisão das bordas do canvas OK
 Movimentação dos blocos OK
 Mouse events OK
-Touch events
-
-
-Ideias:
-- Pode ter um botao para remover uma linha, caso tenha essa opção
-- Verificar se existe alguma pesquisa de quais consoantes e vogais mais aparecem em nosso idioma
-- Implementar history API
+Touch events OK
 
 */
 // is_selected = 0:no, 1:yes, 2:invalid
