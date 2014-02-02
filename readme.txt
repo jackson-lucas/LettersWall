@@ -13,3 +13,6 @@ Como jogar:
 
 O que ainda falta fazer:
     Ver arquivo list.TODO
+
+Teste:
+Teste apenas para computador, certas páginas não estão responsivas

@@ -211,7 +211,8 @@ App.Classes.Game = (function () {
 
                     this.background_music.volume = App.Objects.background_volume;
                     this.background_music.play();
-                    this.sounds_effects_volume = App.Objects.sounds_effects_volume;
+                    this.confirm_sfx.volume = App.Objects.sounds_effects_volume;
+                    this.deny_sfx.volume = App.Objects.sounds_effects_volume;
                     $('#game-status-img').attr('src', 'app/assets/images/pause-3-icon-32.png');
                     this.is_paused = false;
                 }

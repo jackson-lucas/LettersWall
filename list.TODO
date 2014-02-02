@@ -5,14 +5,15 @@ Letter Wall Project:
 ☐ Implementar Arvore Patricia no Dicionario
 ☐ Mensagem de erro para dispositivos não suportados
 ☐ Tirar console.log's para a fase de versão final
-☐ Deixar Instruções responsivo
 ☐ Testar crossbrowser
 ☐ Eliminar instruções e criar um tutorial
-☐ Criar certos poderes(destruir coluna, diminuir velocidade) p/ tornar o jogo mais dinâmico
+☐ Criar certos especiais(destruir coluna, diminuir velocidade) p/ tornar o jogo mais dinâmico
 
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✘ Deixar Instruções responsivo - será criado tutorial @cancelled (14-02-01 21:46)
+ ✔  Efeito sonoro não fica mudo @done (14-02-01 21:45)
  ✔ Criar instruções @done (14-01-28 22:18)
  ✔ Melhorar tempo dos níveis @done (14-01-28 09:08)
  ✔  Ajeitar pause do botao ao desfocar @done (14-01-28 09:07)
