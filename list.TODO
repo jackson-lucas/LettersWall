@@ -1,7 +1,5 @@
 Letter Wall Project:
-✔ Criar Página Principal @done (14-02-02 17:07)
 ☐ Carregamento do audio(jogo)
-☐ Colocar source nos audios como mp3 e wav p/ todos
 ☐ Implementar Arvore Patricia no Dicionario
 ☐ Mensagem de erro para dispositivos não suportados
 ☐ Tirar console.log's para a fase de versão final
@@ -12,6 +10,8 @@ Letter Wall Project:
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ Colocar source nos audios como mp3 e wav p/ todos @done (14-02-02 19:31)
+ ✔ Criar Página Principal @done (14-02-02 17:07)
  ✘ Deixar Instruções responsivo - será criado tutorial @cancelled (14-02-01 21:46)
  ✔  Efeito sonoro não fica mudo @done (14-02-01 21:45)
  ✔ Criar instruções @done (14-01-28 22:18)

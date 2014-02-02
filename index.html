@@ -116,8 +116,15 @@
     </div>
 
 
-    <audio preload="auto" loop="true" src="app/assets/sounds/spankmonkey.mp3"></audio>
-    <audio preload="auto" src="app/assets/sounds/109662__grunz__success.wav"></audio>
+    <audio preload="auto" loop="true">
+        <source src="app/assets/sounds/spankmonkey.wav"></source>
+        <source src="app/assets/sounds/spankmonkey.mp3"></source>
+    </audio>
+    <audio preload="auto">
+        <source src="app/assets/sounds/109662__grunz__success.wav"></source>
+        <source src="app/assets/sounds/109662__grunz__success.mp3"></source>
+        
+    </audio>
     <audio preload="auto">
         <source src="app/assets/sounds/alert_asterisk_3.wav" type="audio/wav">
         <source src="app/assets/sounds/alert_asterisk_3.mp3" type="audio/mp3">
