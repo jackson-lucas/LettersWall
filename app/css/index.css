@@ -60,6 +60,15 @@ button:hover {
     -webkit-box-pack: center;
     -moz-box-align: center;
     -webkit-box-align: center; 
+
+    background-image: url(../assets/images/muro_de_letras_bg.png);
+    background-size: 100% ;
+    background-position: center;
+    background-repeat: repeat-y;
+}
+
+#main-container {
+    margin-top: 33%;
 }
 
 #jogar {
