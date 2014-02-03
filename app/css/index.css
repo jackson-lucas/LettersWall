@@ -52,23 +52,42 @@ button:hover {
     display: -ms-flexbox;
     display: flex;
 
+    -moz-flex-flow: column;
     -webkit-flex-flow: column;
     -ms-flex-flow: column;
     flex-flow: column;
+    flex-direction: column;
 
     -moz-box-pack: center;
     -webkit-box-pack: center;
     -moz-box-align: center;
     -webkit-box-align: center; 
+    box-align: center;
 
     background-image: url(../assets/images/muro_de_letras_bg.png);
+    -webkit-background-size: 100% ;
     background-size: 100% ;
     background-position: center;
     background-repeat: repeat-y;
+
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 1;
 }
+
+
 
 #main-container {
     margin-top: 33%;
+}
+
+/* Firefox only */
+@-moz-document url-prefix() {
+    #main-container {
+        margin-left: 45%;
+        margin-top: 70%;
+    }
 }
 
 #jogar {
@@ -84,10 +103,11 @@ button:hover {
     height:4.063rem;
     line-height:4.063rem;
     width:8.188rem;
-    text-align: center;
+    text-align: center;;
 }
 
 #jogar > div  {
+    text-align: center;
     border-radius: 0.8rem;
     background-color: #FF7F00;
 }
@@ -167,14 +187,6 @@ button:hover {
 
 #instructions, #about, #options, .back {
     background-color: #FFFFFF;
-}
-
-#main {
-    background-color: #FFFFFF;
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    z-index: 1;
 }
 
 .tab-page {

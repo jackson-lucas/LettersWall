@@ -1,4 +1,5 @@
-media = $('audio');
+// Just a file for tests - Ignore this
+/*media = $('audio');
 
 media[0].addEventListener('progress', function()
 {
@@ -15,4 +16,4 @@ media[0].addEventListener('progress', function()
       }
     }
 
-}, false);
+}, false);*/
