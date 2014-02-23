@@ -1,15 +1,15 @@
 Letter Wall Project:
-✘ Carregamento do audio(jogo) - tizen já terá os assets no jogo @cancelled (14-02-18 13:56)
 ☐ Implementar Arvore Patricia no Dicionario
-☐ Mensagem de erro para dispositivos não suportados
-✘ Testar crossbrowser - focando somente tizen @cancelled (14-02-18 13:54)
-☐ Eliminar instruções e criar um tutorial
 ☐ Tirar console.log's para a fase de versão final
-✘ Criar certos especiais(destruir coluna, diminuir velocidade) p/ tornar o jogo mais dinâmico - está versão não terá @cancelled (14-02-18 13:53)
 
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✘ Mensagem de erro para dispositivos não suportados - suporte apenas para Tizen @cancelled (14-02-22 20:41)
+ ✘ Eliminar instruções e criar um tutorial - instruções responsivo agora @cancelled (14-02-22 20:40)
+ ✘ Carregamento do audio(jogo) - tizen já terá os assets no jogo @cancelled (14-02-18 13:56)
+ ✘ Testar crossbrowser - focando somente tizen @cancelled (14-02-18 13:54)
+ ✘ Criar certos especiais(destruir coluna, diminuir velocidade) p/ tornar o jogo mais dinâmico - está versão não terá @cancelled (14-02-18 13:53)
  ✔ Colocar source nos audios como mp3 e wav p/ todos @done (14-02-02 19:31)
  ✔ Criar Página Principal @done (14-02-02 17:07)
  ✘ Deixar Instruções responsivo - será criado tutorial @cancelled (14-02-01 21:46)
